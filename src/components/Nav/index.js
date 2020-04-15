@@ -1,11 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import PhoneNav from './PhoneNav'
 
 function Nav (props) {
   const [activeItem, setActiveItem] = useState(props.data.activeItem)
-  // const [activeItem, setActiveItem] = useState(props.data.activeItem)
+  const [phoneNavShow, setPhoneNavShow] = useState(false)
+
+  const x = window.matchMedia('(max-width: 900px)')
+  // 监听窗口变化 过窄收起侧边栏 过宽展开侧边栏
+  const listenScreenWidth = (x) => {
+    if (x.matches) { // 媒体查询
+      setPhoneNavShow(false)
+    } else {
+      setPhoneNavShow(true)
+    }
+  }
+
+  useEffect(() => {
+    listenScreenWidth(x) // 执行时调用的监听函数
+    x.addListener(listenScreenWidth) // 状态改变时添加监听器
+    return () => {
+      x.removeListener(listenScreenWidth)
+    }
+  }, [])
 
   const handleMenuClick = (menu) => {
     setActiveItem(menu.key)
@@ -43,7 +61,7 @@ function Nav (props) {
   }
 
   return (
-    <Menu style={{ padding: '0 4%', background: 'black' }}
+    <Menu size='huge' style={{ padding: '0 4%', background: 'black' }}
       color={props.data.activeColor} pointing secondary
     >
       <Menu.Item header>
@@ -53,19 +71,23 @@ function Nav (props) {
           { props.data.titleText }
         </span>
       </Menu.Item>
-      <Menu.Menu position='left'>
-        { menuView(props.data.leftMenu) }
-      </Menu.Menu>
-      <Menu.Menu position='right'>
-        { menuView(props.data.rightMenu) }
-        <Menu.Item>
-          <PhoneNav>
-            <em></em>
-            <em></em>
-            <em></em>
-          </PhoneNav>
-        </Menu.Item>
-      </Menu.Menu>
+      { phoneNavShow ? (
+        <>
+          <Menu.Menu position='left'>
+            { menuView(props.data.leftMenu) }
+          </Menu.Menu>
+          <Menu.Menu position='right'>
+            { menuView(props.data.rightMenu) }
+          </Menu.Menu>
+        </>
+      ) : ( 
+        <Menu.Menu position='right'>
+          <Menu.Item>
+            <PhoneNav data={props.data}></PhoneNav>
+          </Menu.Item>
+        </Menu.Menu>
+        )
+      }
     </Menu>
   )
 }

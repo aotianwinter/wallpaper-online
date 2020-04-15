@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-export const PhoneNav = styled.div`
+export const PhoneNavBt = styled.div`
+  color: white;
   width: 20px;
   height: 100%;
   em {
@@ -17,4 +18,19 @@ export const PhoneNav = styled.div`
   em:not(:nth-of-type(2)) {
     transition: all 0.5s ease 0.1s;
   }
+`
+
+export const PhoneNavWrapper = styled.div`
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease 0.1s;
+  margin-top: 49px;
+  background: black;
 `

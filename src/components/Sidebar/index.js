@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar, Menu } from 'semantic-ui-react'
+import { Sidebar, Menu, Sticky } from 'semantic-ui-react'
 // TODO item.key作为key提示重复，待解决
 
 function VerticalSidebar (props) {

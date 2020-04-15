@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createRef } from 'react'
 import { connect } from 'react-redux'
 import * as actionTypes from './store/actionCreators'
 import VerticalSidebar from '../../components/Sidebar'
-import { Placeholder, Button, Divider, Image, Sidebar, Segment } from 'semantic-ui-react'
+import { Placeholder, Button, Divider, Image, Sidebar, Segment, Sticky } from 'semantic-ui-react'
 
 function Test (props) {
+  const contextRef = createRef()
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
   const { imgTypes, imgList, isLoading } = props
   const { getImgTypesDispatch, getImgListDispatch } = props
@@ -48,19 +49,22 @@ function Test (props) {
   }
 
   return (
-    <>
-      <Divider horizontal>
-        <Button onClick={() => setSidebarShow(!sidebarShow)}>type list</Button>
-      </Divider>
+    <div ref={contextRef}>
+      <Sticky context={contextRef}>
+        <Divider horizontal>
+          <Button onClick={() => setSidebarShow(!sidebarShow)}>type list</Button>
+        </Divider>
+      </Sticky>
       <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
-        <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}></VerticalSidebar>
-        <Sidebar.Pusher dimmed={sidebarShow}>
+        <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}>
+        </VerticalSidebar>
+        <Sidebar.Pusher onClick={() => {setSidebarShow(false)}} dimmed={sidebarShow}>
           <Segment basic>
             { !isLoading ? <ImgListView/> : <ImgPlaceholder/> }
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-    </>
+    </div>
   )
 }
 

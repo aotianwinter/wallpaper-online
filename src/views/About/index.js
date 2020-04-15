@@ -1,17 +1,18 @@
 import React from 'react'
 import { addNum, addNum2 } from './store/actionCreators'
 import { connect } from 'react-redux'
-import { Header } from 'semantic-ui-react'
+import { Header, Label } from 'semantic-ui-react'
+import aa from '../../assets/dajiangyou.jpg'
 
 function PageAbout (props) {
   // console.log(props)
   return (
     <div style={{ textAlign: 'center', marginTop: '20vh' }}>
-      <Header as='h1'>
-        {props.aa}
-      </Header>
-      <button onClick={() => props.add2(10)}> +1 </button>
       <Header as='h1'>Resources are for learning only, not for commercial use.</Header>
+      <Label as='a' size='large' image>
+        <img src={aa} />
+        打酱油
+      </Label>
     </div>
   )
 }
