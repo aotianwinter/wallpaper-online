@@ -2,10 +2,15 @@ import React, { useState, useEffect, createRef } from 'react'
 import { connect } from 'react-redux'
 import * as actionTypes from './store/actionCreators'
 import VerticalSidebar from '../../components/Sidebar'
-import { Placeholder, Button, Divider, Image, Sidebar, Segment, Sticky } from 'semantic-ui-react'
+import ImgView from '../../components/ImgView'
+import ImgPreview from '../../components/ImgPreview'
+
+// import { RightBt } from './style'
+import { Placeholder, Button, Image, Sidebar, Segment } from 'semantic-ui-react'
 
 function Test (props) {
   const contextRef = createRef()
+  const [preview, setPreview] = useState({}) // preview
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
   const { imgTypes, imgList, isLoading } = props
   const { getImgTypesDispatch, getImgListDispatch } = props
@@ -30,7 +35,10 @@ function Test (props) {
           <div key={item.id}
             style={{ display: 'inline-block', width: '25%' }}
           >
-            <Image style={{ width: '100%', lineHeight: '0px' }} src={item.url}/>
+            {/* <Image style={{ width: '100%', lineHeight: '0px' }} src={item.url}/> */}
+            <ImgView handleClick={() => setPreview(item)}
+              data={item}>
+            </ImgView>
           </div>
         )
       }) : null
@@ -50,11 +58,15 @@ function Test (props) {
 
   return (
     <div ref={contextRef}>
-      <Sticky context={contextRef}>
-        <Divider horizontal>
-          <Button onClick={() => setSidebarShow(!sidebarShow)}>type list</Button>
-        </Divider>
-      </Sticky>
+      {/* <RightBt>
+        <Button onClick={() => setSidebarShow(!sidebarShow)}
+          circular color='teal' icon='arrow up'>
+        </Button>
+        <Button onClick={() => {document.body.scrollTop = 0; document.documentElement.scrollTop = 0}}
+          circular color='teal'>22
+        </Button>
+      </RightBt> */}
+      
       <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
         <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}>
         </VerticalSidebar>
@@ -64,6 +76,9 @@ function Test (props) {
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
+
+      <ImgPreview handleClick={ () => setPreview({}) }
+        url={ preview.url || '' } visible={ preview.url && preview.url !== '' } ></ImgPreview>
     </div>
   )
 }
