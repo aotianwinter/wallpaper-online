@@ -12,8 +12,28 @@ const menus = {
     subitems: [
       {
         key: '111',
-        title: '111',
+        title: 'test111',
         href: '/test/1'
+      },
+      {
+        key: '222',
+        title: 'test222',
+        href: '/test/2'
+      }
+    ]
+  },{
+    key: 'Main2',
+    title: '主页2',
+    subitems: [
+      {
+        key: '1112',
+        title: '2test111',
+        href: '/test/1'
+      },
+      {
+        key: '2222',
+        title: '2test222',
+        href: '/test/2'
       }
     ]
   },{

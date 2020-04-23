@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { PhoneNavBt, PhoneNavWrapper } from './style'
-import { Dropdown, Menu } from 'semantic-ui-react'
+import { Icon, Menu, Accordion } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 function PhoneNav (props) {
   const wrapperRef = useRef(null)
+  const [activeIndex, setActiveItem] = useState('')
 
   const showPhoneNavWrapper = () => {
     let emList = document.getElementsByTagName('em')
@@ -48,13 +49,30 @@ function PhoneNav (props) {
   const menuView = (menus) => {
     return menus.map((item) => {
       return item.subitems && item.subitems.length ?
-        item.subitems.map((i) => {
-          return (
-            <Menu.Item style={{ color: props.data.textColor }} onClick={() => handleMenuClick(i) } key={i.key}>
-              {i.title}
-            </Menu.Item>
-          )
-        })
+        (
+          <Accordion key={item.key} styled inverted style={{ background: 'black', width: '100%'}}>
+            <Accordion.Title
+              as={Menu.Header}
+              active={activeIndex === item.key}
+              index={0}
+              onClick={() => setActiveItem(activeIndex === item.key ? '-1' : item.key)}
+            >
+              <Icon name='dropdown' />
+              { item.title }
+            </Accordion.Title>
+            {
+              item.subitems.map((i) => {
+                return (
+                  <Accordion.Content style={{padding: '0px'}} key={i.key} active={activeIndex === item.key}>
+                    <Menu.Item style={{ paddingLeft: '3rem', color: props.data.textColor, background: '#1B1C1D' }} onClick={() => handleMenuClick(item) }>
+                      { item.title }
+                    </Menu.Item>
+                  </Accordion.Content>
+                )
+              })
+            }
+          </Accordion>
+        )
       :
       (
         <Menu.Item style={{ color: props.data.textColor }} onClick={() => handleMenuClick(item) } key={item.key}>
