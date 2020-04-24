@@ -33,6 +33,7 @@ function PhoneNav (props) {
 
   const handleMenuClick = (menu) => {
     // setActiveItem(menu.key)
+    // console.log(menu)
     props.history.push(menu.href)
     const wrapper = wrapperRef.current
     let emList = document.getElementsByTagName('em')
@@ -64,7 +65,8 @@ function PhoneNav (props) {
               item.subitems.map((i) => {
                 return (
                   <Accordion.Content style={{padding: '0px'}} key={i.key} active={activeIndex === item.key}>
-                    <Menu.Item style={{ paddingLeft: '3rem', color: props.data.textColor, background: '#1B1C1D' }} onClick={() => handleMenuClick(item) }>
+                    <Menu.Item style={{ paddingLeft: '3rem', color: props.data.textColor, background: '#1B1C1D' }}
+                      onClick={() => handleMenuClick(i) }>
                       { item.title }
                     </Menu.Item>
                   </Accordion.Content>

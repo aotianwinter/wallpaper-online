@@ -2,10 +2,11 @@ import React, { useState, useEffect, createRef } from 'react'
 import { connect } from 'react-redux'
 import * as actionTypes from './store/actionCreators'
 import VerticalSidebar from '../../components/Sidebar'
+import LazyLoad from 'react-lazyload'
 import ImgView from '../../components/ImgView'
 import ImgPreview from '../../components/ImgPreview'
 
-// import { RightBt } from './style'
+import { RightBt } from './style'
 import { Placeholder, Button, Image, Sidebar, Segment } from 'semantic-ui-react'
 
 function Test (props) {
@@ -36,9 +37,9 @@ function Test (props) {
             style={{ display: 'inline-block', width: '25%' }}
           >
             {/* <Image style={{ width: '100%', lineHeight: '0px' }} src={item.url}/> */}
-            <ImgView handleClick={() => setPreview(item)}
-              data={item}>
-            </ImgView>
+            {/* <LazyLoad placeholder={<img width="100%" src={require('./loading.gif')} alt="img"/>}> */}
+              <ImgView handleClick={() => setPreview(item)} data={item}></ImgView>
+            {/* </LazyLoad> */}
           </div>
         )
       }) : null
@@ -58,15 +59,15 @@ function Test (props) {
 
   return (
     <div ref={contextRef}>
-      {/* <RightBt>
+      <RightBt>
         <Button onClick={() => setSidebarShow(!sidebarShow)}
           circular color='teal' icon='arrow up'>
         </Button>
         <Button onClick={() => {document.body.scrollTop = 0; document.documentElement.scrollTop = 0}}
           circular color='teal'>22
         </Button>
-      </RightBt> */}
-      
+      </RightBt>
+
       <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
         <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}>
         </VerticalSidebar>
