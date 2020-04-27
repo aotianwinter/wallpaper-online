@@ -4,7 +4,7 @@ export const PhoneNavBt = styled.div`
   color: white;
   width: 20px;
   height: 100%;
-  em {
+  .phone-nav-em {
     color: white;
     display: block;
     width: 20px;
@@ -12,10 +12,10 @@ export const PhoneNavBt = styled.div`
     width: 100%;
     background: white;
   }
-  em:not(:first-child) {
+  .phone-nav-em:not(:first-child) {
     margin-top: 4px;
   }
-  em:not(:nth-of-type(2)) {
+  .phone-nav-em:not(:nth-of-type(2)) {
     transition: all 0.5s ease 0.1s;
   }
 `
@@ -27,10 +27,8 @@ export const PhoneNavWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  opacity: 0;
-  z-index: -1;
   display: block;
-  transition: all 0.5s ease 0.1s;
   margin-top: 49px;
   background: black;
+  z-index: 1000;
 `

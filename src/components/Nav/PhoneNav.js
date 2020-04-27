@@ -1,29 +1,21 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { PhoneNavBt, PhoneNavWrapper } from './style'
-import { Icon, Menu, Accordion } from 'semantic-ui-react'
+import { Icon, Menu, Accordion, Transition } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 function PhoneNav (props) {
-  const wrapperRef = useRef(null)
   const [activeIndex, setActiveItem] = useState('')
+  const [visible, setVisible] = useState(false)
+  const emList = document.getElementsByClassName('phone-nav-em')
 
   const showPhoneNavWrapper = () => {
-    let emList = document.getElementsByTagName('em')
-    const wrapper = wrapperRef.current
-    if (wrapper.style.opacity === '1') {
-      // document.documentElement.style.overflowY = ''
-      wrapper.style.zIndex = '-1'
-      wrapper.style.opacity = '0'
-      // setMenuList([])
+    setVisible(!visible)
+    if (visible) {
       emList[0].style.transform = ''
       emList[1].style.transition = 'all 0.5s ease 0.2s'
       emList[1].style.opacity = '1'
       emList[2].style.transform = ''
     } else {
-      // document.documentElement.style.overflowY = 'hidden'
-      wrapper.style.zIndex = '1000'
-      wrapper.style.opacity = '1'
-      // setMenuList([...props.menuList])
       emList[0].style.transform = 'translate(0px,6px) rotate(45deg)'
       emList[1].style.opacity = '0'
       emList[1].style.transition = ''
@@ -32,14 +24,8 @@ function PhoneNav (props) {
   }
 
   const handleMenuClick = (menu) => {
-    // setActiveItem(menu.key)
-    // console.log(menu)
     props.history.push(menu.href)
-    const wrapper = wrapperRef.current
-    let emList = document.getElementsByTagName('em')
-    wrapper.style.zIndex = '-1'
-    wrapper.style.opacity = '0'
-    // setMenuList([])
+    setVisible(false)
     emList[0].style.transform = ''
     emList[1].style.transition = 'all 0.5s ease 0.2s'
     emList[1].style.opacity = '1'
@@ -86,17 +72,19 @@ function PhoneNav (props) {
 
   return (
     <>
-      <PhoneNavBt onClick={showPhoneNavWrapper}>
-        <em></em>
-        <em></em>
-        <em></em>
+      <PhoneNavBt onClick={ showPhoneNavWrapper }>
+        <em className='phone-nav-em'></em>
+        <em className='phone-nav-em'></em>
+        <em className='phone-nav-em'></em>
       </PhoneNavBt>
-      <PhoneNavWrapper ref={wrapperRef}>
-        <Menu style={{ width: '100%' }} inverted size='huge' vertical>
-          { menuView(props.data.leftMenu) }
-          { menuView(props.data.rightMenu) }
-        </Menu>
-      </PhoneNavWrapper>
+      <Transition visible={visible} animation='fade' duration={500}>
+        <PhoneNavWrapper>
+          <Menu style={{ width: '100%' }} inverted size='huge' vertical>
+            { menuView(props.data.leftMenu) }
+            { menuView(props.data.rightMenu) }
+          </Menu>
+        </PhoneNavWrapper>
+      </Transition>
     </>
   )
 }

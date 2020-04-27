@@ -4,7 +4,8 @@ import { fromJS } from 'immutable'
 const defaultState = fromJS({
   imgList: [],
   imgTypes: [],
-  isLoading: true
+  isLoading: true,
+  isPreview: false
 })
 
 export default (state = defaultState, action) => {
@@ -16,6 +17,8 @@ export default (state = defaultState, action) => {
       return state.set('imgList', action.data)
     case actionTypes.CHANGE_IS_LOADING:
       return state.set('isLoading', action.data)
+    case actionTypes.CHANGE_IS_PREVIEW:
+      return state.set('isPreview', action.data)
     default:
       return state
   }

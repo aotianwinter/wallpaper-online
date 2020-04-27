@@ -1,4 +1,4 @@
-import { CHANGE_IMG_TYPES, CHANGE_IMG_LIST, CHANGE_IS_LOADING } from './actionTypes'
+import { CHANGE_IMG_TYPES, CHANGE_IMG_LIST, CHANGE_IS_LOADING, CHANGE_IS_PREVIEW } from './actionTypes'
 import { getCategories, getPictureList } from '../../../api/getData'
 // import { fromJS } from 'immutable'
 
@@ -14,6 +14,11 @@ export const changeImgList = (data) => ({
 
 export const changeIsLoading = (data) => ({
   type: CHANGE_IS_LOADING,
+  data
+})
+
+export const changeIsPreview = (data) => ({
+  type: CHANGE_IS_PREVIEW,
   data
 })
 

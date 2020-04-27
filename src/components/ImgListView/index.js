@@ -1,38 +1,22 @@
-import React, { useState, useEffect } from "react"
-import { getPictureList } from '../api/getData'
+import React, { useState, useEffect } from 'react'
 import { Image } from 'semantic-ui-react'
 
-export default function Test () {
-  const [imgList, setImgList] = useState([])
-
-  useEffect(() => {
-    // setIsLoading(true)
-    const getData = async() => {
-      const res = await getPictureList({
-        type: 5,
-        start: 0,
-        count: 30
-      })
-      if (res.data.data !== []) {
-        setImgList(res.data.data)
-      }
-    }
-    getData()
-  }, [])
+function ImgListView (props) {
+  const imgList = props.data
 
   return (
-    <>
-      {
-        imgList.map((item) => {
-          return (
-            <div style={{
-              width: '20%'
-            }}>
-              <Image src={item.url} size='small' />
-            </div>
-          )
-        })
-      }
-    </>
+    imgList.length ? imgList.map((item) => {
+      return (
+        <div key={item.id}
+          style={{ display: 'inline-block', width: '100%' }}
+        >
+          <Image onClick={() => props.handleImgViewClick(item)}
+            style={{ width: '100%' }} src={item.url}/>
+          {/* <ImgView handleClick={() => setPreview(item)} data={item}></ImgView> */}
+        </div>
+      )
+    }) : null
   )
 }
+
+export default React.memo(ImgListView)

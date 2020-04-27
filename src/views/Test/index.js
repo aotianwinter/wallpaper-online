@@ -1,20 +1,18 @@
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import * as actionTypes from './store/actionCreators'
 import VerticalSidebar from '../../components/Sidebar'
-import LazyLoad from 'react-lazyload'
-import ImgView from '../../components/ImgView'
-import ImgPreview from '../../components/ImgPreview'
+// import LazyLoad from 'react-lazyload'
+import ImgListView from '../../components/ImgListView'
+import ImgPreview from '../../basicUI/ImgPreview'
 
-import { RightBt } from './style'
-import { Placeholder, Button, Image, Sidebar, Segment } from 'semantic-ui-react'
+import { Placeholder, Sidebar, Segment } from 'semantic-ui-react'
 
 function Test (props) {
-  const contextRef = createRef()
-  const [preview, setPreview] = useState({}) // preview
+  const [previewImg, setPreviewImg] = useState({}) // preview
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
-  const { imgTypes, imgList, isLoading } = props
-  const { getImgTypesDispatch, getImgListDispatch } = props
+  const { imgTypes, imgList, isLoading, isPreview } = props
+  const { getImgTypesDispatch, getImgListDispatch, changeIsPreviewDispatch } = props
 
   useEffect(() => {
     if (!imgTypes.size) {
@@ -25,25 +23,18 @@ function Test (props) {
     }
   }, [])
 
-  const changeImgType = (item) => {
-    getImgListDispatch(item.key)
+  const handlePreviewImg = (img) => {
+    if (isPreview) {
+      setPreviewImg({})
+      changeIsPreviewDispatch(false)
+    } else {
+      setPreviewImg(img)
+      changeIsPreviewDispatch(true)
+    }
   }
 
-  const ImgListView = () => {
-    return (
-      imgList.length ? imgList.map((item) => {
-        return (
-          <div key={item.id}
-            style={{ display: 'inline-block', width: '25%' }}
-          >
-            {/* <Image style={{ width: '100%', lineHeight: '0px' }} src={item.url}/> */}
-            {/* <LazyLoad placeholder={<img width="100%" src={require('./loading.gif')} alt="img"/>}> */}
-              <ImgView handleClick={() => setPreview(item)} data={item}></ImgView>
-            {/* </LazyLoad> */}
-          </div>
-        )
-      }) : null
-    )
+  const changeImgType = (item) => {
+    getImgListDispatch(item.key)
   }
 
   const ImgPlaceholder = () => {
@@ -58,28 +49,23 @@ function Test (props) {
   }
 
   return (
-    <div ref={contextRef}>
-      <RightBt>
-        <Button onClick={() => setSidebarShow(!sidebarShow)}
-          circular color='teal' icon='arrow up'>
-        </Button>
-        <Button onClick={() => {document.body.scrollTop = 0; document.documentElement.scrollTop = 0}}
-          circular color='teal'>22
-        </Button>
-      </RightBt>
-
-      <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
+    <div>
+      {/* <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
         <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}>
         </VerticalSidebar>
         <Sidebar.Pusher onClick={() => {setSidebarShow(false)}} dimmed={sidebarShow}>
           <Segment basic>
-            { !isLoading ? <ImgListView/> : <ImgPlaceholder/> }
+            { !isLoading ? <ImgListView handleImgViewClick={item => setPreview(item)} data={ imgList }/> : <ImgPlaceholder/> }
           </Segment>
         </Sidebar.Pusher>
-      </Sidebar.Pushable>
+      </Sidebar.Pushable> */}
 
-      <ImgPreview handleClick={ () => setPreview({}) }
-        url={ preview.url || '' } visible={ preview.url && preview.url !== '' } ></ImgPreview>
+      
+      { !isLoading ? <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/> : <ImgPlaceholder/> }
+      <ImgPreview handleClick={ () => handlePreviewImg() }
+        url={ previewImg.url } visible={ isPreview }
+      >
+      </ImgPreview>
     </div>
   )
 }
@@ -89,7 +75,8 @@ const mapStateToProps = (state) => {
   return ({
     imgTypes: state.getIn(['test', 'imgTypes']),
     imgList: state.getIn(['test', 'imgList']),
-    isLoading: state.getIn(['test', 'isLoading'])
+    isLoading: state.getIn(['test', 'isLoading']),
+    isPreview: state.getIn(['test', 'isPreview']),
   })
 }
 
@@ -101,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getImgListDispatch (typeId) {
       dispatch(actionTypes.getImgList(typeId))
+    },
+    changeIsPreviewDispatch (isPreview) {
+      dispatch(actionTypes.changeIsPreview(isPreview))
     }
   }
 }

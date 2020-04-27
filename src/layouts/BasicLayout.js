@@ -2,7 +2,7 @@ import React, { createRef } from 'react'
 import { renderRoutes } from 'react-router-config'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import headerConfig from './init/headerConfig'
+import navConfig from '../config/nav'
 import { Sticky } from 'semantic-ui-react'
 
 function BasicLayout (props) {
@@ -12,7 +12,7 @@ function BasicLayout (props) {
   return (
     <div ref={contextRef}>
       <Sticky context={contextRef}>
-        <Nav data={headerConfig}/>
+        <Nav data={navConfig}/>
       </Sticky>
       {/* 这是基础布局 */}
       <div style={{ minHeight: '80vh' }}>
