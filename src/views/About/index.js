@@ -1,6 +1,7 @@
 import React from 'react'
 import { Header, Label } from 'semantic-ui-react'
 import avatar from '../../assets/dajiangyou.jpg'
+import LayoutSwitch from '../../basicUI/LayoutSwitch'
 
 function PageAbout (props) {
   return (
@@ -10,6 +11,21 @@ function PageAbout (props) {
         <img src={avatar} />
         打酱油
       </Label>
+      <LayoutSwitch>
+        <LayoutSwitch.PC>
+          <p>PC</p>
+          <p>PC</p>
+          <p>PC</p>
+        </LayoutSwitch.PC>
+        <LayoutSwitch.Pad>
+          <p>Pad</p>
+          <p>Pad</p>
+          <p>Pad</p>
+        </LayoutSwitch.Pad>
+        <LayoutSwitch.Phone>
+          <p>Phone</p>
+        </LayoutSwitch.Phone>
+      </LayoutSwitch>
     </div>
   )
 }

@@ -8,7 +8,7 @@ function ImgListView (props) {
     imgList.length ? imgList.map((item) => {
       return (
         <div key={item.id}
-          style={{ display: 'inline-block', width: '100%' }}
+          style={{ display: 'inline-block', width: '50%' }}
         >
           <Image onClick={() => props.handleImgViewClick(item)}
             style={{ width: '100%' }} src={item.url}/>

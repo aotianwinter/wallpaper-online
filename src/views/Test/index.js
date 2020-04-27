@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import InfiniteScroll from 'react-infinite-scroller'
 import * as actionTypes from './store/actionCreators'
 import VerticalSidebar from '../../components/Sidebar'
 // import LazyLoad from 'react-lazyload'
 import ImgListView from '../../components/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
 
-import { Placeholder, Sidebar, Segment } from 'semantic-ui-react'
+import { Placeholder, Sidebar, Segment, Button } from 'semantic-ui-react'
 
 function Test (props) {
-  const [previewImg, setPreviewImg] = useState({}) // preview
+  const [previewImg, setPreviewImg] = useState({}) // preview img info
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
   const { imgTypes, imgList, isLoading, isPreview } = props
   const { getImgTypesDispatch, getImgListDispatch, changeIsPreviewDispatch } = props
@@ -50,22 +51,37 @@ function Test (props) {
 
   return (
     <div>
+      <Button onClick={() => setSidebarShow(!sidebarShow)}
+        circular color='teal'>123
+      </Button>
+      <hr/>
+
       {/* <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
         <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}>
         </VerticalSidebar>
-        <Sidebar.Pusher onClick={() => {setSidebarShow(false)}} dimmed={sidebarShow}>
+        <Sidebar.Pusher onClick={() => setSidebarShow(false) } dimmed={sidebarShow}>
           <Segment basic>
-            { !isLoading ? <ImgListView handleImgViewClick={item => setPreview(item)} data={ imgList }/> : <ImgPlaceholder/> }
+            { !isLoading ? <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/> : <ImgPlaceholder/> }
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable> */}
 
-      
-      { !isLoading ? <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/> : <ImgPlaceholder/> }
+      { !isLoading ? (
+        <InfiniteScroll
+          initialLoad={true}
+          pageStart={0}
+          loadMore={ () => console.log('+11') }
+          hasMore={!isLoading}
+          threshold={50}
+        >
+          <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
+        </InfiniteScroll>
+      )
+        : <ImgPlaceholder/>
+      }
       <ImgPreview handleClick={ () => handlePreviewImg() }
         url={ previewImg.url } visible={ isPreview }
-      >
-      </ImgPreview>
+      />
     </div>
   )
 }
