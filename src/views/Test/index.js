@@ -1,41 +1,85 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
-import * as actionTypes from './store/actionCreators'
 import VerticalSidebar from '../../components/Sidebar'
 // import LazyLoad from 'react-lazyload'
 import ImgListView from '../../components/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
-
 import { Placeholder, Sidebar, Segment, Button } from 'semantic-ui-react'
 
+import { getCategories, getPictureList } from '../../api/getData'
+
 function Test (props) {
+  const [queryInfo, setQueryInfo] = useState({type: 5, start: 0, count: 30}) // query info
+  const [isLoading, setIsLoading] = useState(true) // is loading
+  const [isPreview, setIsPreview] = useState(false) // is preview
+
+  const [imgList, setImgList] = useState([])
+  const [typeList, setTypeList] = useState([])
   const [previewImg, setPreviewImg] = useState({}) // preview img info
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
-  const { imgTypes, imgList, isLoading, isPreview } = props
-  const { getImgTypesDispatch, getImgListDispatch, changeIsPreviewDispatch } = props
+
+  //  TODO 节流实现图片请求获取
+  useEffect(() => {
+    getTypes()
+    getData()
+  }, [])
 
   useEffect(() => {
-    if (!imgTypes.size) {
-      getImgTypesDispatch()
+    if (imgList.length) {
+      mergeData()
+    } else {
+      getData()
     }
-    if (!imgList.size) {
-      getImgListDispatch()
+  }, [queryInfo])
+
+  const getTypes = async () => {
+    const res = await getCategories()
+    let array = []
+    Object.keys(res.data.data).map((i) => {
+      if (res.data.data[i].id !== '1') {
+        let temp = {}
+        temp.key = res.data.data[i].id
+        temp.title = res.data.data[i].name
+        array.push(temp)
+      }
+    })
+    setTypeList(array)
+  }
+
+  const getData = async () => {
+    const res = await getPictureList({...queryInfo})
+    if (res) {
+      setImgList(res.data.data)
+      setIsLoading(false)
     }
-  }, [])
+  }
+
+  const mergeData = async () => {
+    const res = await getPictureList({...queryInfo})
+    if (res) {
+      setImgList(imgList.concat(res.data.data))
+      setIsLoading(false)
+    }
+  }
 
   const handlePreviewImg = (img) => {
     if (isPreview) {
       setPreviewImg({})
-      changeIsPreviewDispatch(false)
+      setIsPreview(false)
     } else {
       setPreviewImg(img)
-      changeIsPreviewDispatch(true)
+      setIsPreview(true)
     }
   }
 
   const changeImgType = (item) => {
-    getImgListDispatch(item.key)
+    setImgList([])
+    setQueryInfo({...queryInfo, type: item.key, start: 0, count: 30})
+  }
+
+  const loadMoreImgs = () => {
+    setIsLoading(true)
+    setQueryInfo({...queryInfo, start: queryInfo.start + queryInfo.count})
   }
 
   const ImgPlaceholder = () => {
@@ -51,34 +95,41 @@ function Test (props) {
 
   return (
     <div>
-      <Button onClick={() => setSidebarShow(!sidebarShow)}
-        circular color='teal'>123
+      <Button onClick={() => setSidebarShow(true)} circular color='teal'>
+        分类
       </Button>
-      <hr/>
 
-      {/* <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
-        <VerticalSidebar handleClick={changeImgType} data={imgTypes} visible={sidebarShow}>
+      <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
+        <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} visible={sidebarShow}>
         </VerticalSidebar>
         <Sidebar.Pusher onClick={() => setSidebarShow(false) } dimmed={sidebarShow}>
           <Segment basic>
-            { !isLoading ? <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/> : <ImgPlaceholder/> }
+            {/* { !isLoading ? <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/> : <ImgPlaceholder/> } */}
+            <InfiniteScroll
+              initialLoad={true}
+              pageStart={0}
+              loadMore={ () => loadMoreImgs() }
+              hasMore={!isLoading && imgList.length !== 0}
+              threshold={50}
+            >
+              <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
+            </InfiniteScroll>
+            { isLoading ? <ImgPlaceholder/> : null }
           </Segment>
         </Sidebar.Pusher>
-      </Sidebar.Pushable> */}
+      </Sidebar.Pushable>
 
-      { !isLoading ? (
-        <InfiniteScroll
-          initialLoad={true}
-          pageStart={0}
-          loadMore={ () => console.log('+11') }
-          hasMore={!isLoading}
-          threshold={50}
-        >
-          <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
-        </InfiniteScroll>
-      )
-        : <ImgPlaceholder/>
-      }
+      {/* <InfiniteScroll
+        initialLoad={true}
+        pageStart={0}
+        loadMore={ () => loadMoreImgs() }
+        hasMore={!isLoading && imgList.length !== 0}
+        threshold={50}
+      >
+        <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
+      </InfiniteScroll>
+      { isLoading ? <ImgPlaceholder/> : null } */}
+
       <ImgPreview handleClick={ () => handlePreviewImg() }
         url={ previewImg.url } visible={ isPreview }
       />
@@ -86,29 +137,4 @@ function Test (props) {
   )
 }
 
-// 映射Redux全局的state到组件的props上
-const mapStateToProps = (state) => {
-  return ({
-    imgTypes: state.getIn(['test', 'imgTypes']),
-    imgList: state.getIn(['test', 'imgList']),
-    isLoading: state.getIn(['test', 'isLoading']),
-    isPreview: state.getIn(['test', 'isPreview']),
-  })
-}
-
-// 映射dispatch到props上
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getImgTypesDispatch () {
-      dispatch(actionTypes.getImgTypes())
-    },
-    getImgListDispatch (typeId) {
-      dispatch(actionTypes.getImgList(typeId))
-    },
-    changeIsPreviewDispatch (isPreview) {
-      dispatch(actionTypes.changeIsPreview(isPreview))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Test))
+export default React.memo(Test)

@@ -1,15 +1,15 @@
 import { CHANGE_IMG_TYPES, CHANGE_IMG_LIST, CHANGE_IS_LOADING, CHANGE_IS_PREVIEW } from './actionTypes'
 import { getCategories, getPictureList } from '../../../api/getData'
-// import { fromJS } from 'immutable'
+import { fromJS } from 'immutable'
 
 export const changeImgTypes = (data) => ({
   type: CHANGE_IMG_TYPES,
-  data
+  data: fromJS(data)
 })
 
 export const changeImgList = (data) => ({
   type: CHANGE_IMG_LIST,
-  data
+  data: fromJS(data)
 })
 
 export const changeIsLoading = (data) => ({
@@ -21,6 +21,11 @@ export const changeIsPreview = (data) => ({
   type: CHANGE_IS_PREVIEW,
   data
 })
+
+// export const changeQueryInfo = (data) => ({
+//   type: CHANGE_QUERY_INFO,
+//   data: fromJS(data)
+// })
 
 export const getImgTypes = () => {
   return async (dispatch) => {
@@ -38,21 +43,33 @@ export const getImgTypes = () => {
   }
 }
 
-export const getImgList = (typeId) => {
-  // console.log(typeId)
+export const getImgList = (queryInfo) => {
   return async (dispatch) => {
+    dispatch(changeIsLoading(true))
     const res = await getPictureList({
-      type: typeId || 5,
-      start: 0,
-      count: 30
+      type: queryInfo.type,
+      start: queryInfo.start,
+      count: queryInfo.count
     })
     if (res.data.data) {
-      // console.log(res.data.data)
       dispatch(changeIsLoading(false))
-      const action = changeImgList(res.data.data)
-      dispatch(action)
+      dispatch(changeImgList(res.data.data))
     }
   }
 }
 
-// const filter
+export const mergeImgList = (oldArray, queryInfo) => {
+  return async (dispatch) => {
+    dispatch(changeIsLoading(true))
+    const res = await getPictureList({
+      type: queryInfo.type,
+      start: queryInfo.start,
+      count: queryInfo.count
+    })
+    if (res.data.data) {
+      dispatch(changeIsLoading(false))
+      // const action = changeImgList(res.data.data)
+      // dispatch(action)
+    }
+  }
+}

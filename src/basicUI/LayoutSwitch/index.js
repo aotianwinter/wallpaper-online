@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 
+const Pad = (props) => (<div className='aaa'>{props.children}</div>)
 function LayoutSwitch (props) {
-  // console.log(LayoutSwitch.PC)
+  console.log(props.content)
   // const temp = React.cloneElement(props.children[0], {
   //   name: 'PC'
   // })
-  // console.log(temp)
+  const { children, content, className } = props
+  console.log(children, content, className)
   
   // control content slot
   const renderChild = (child) => {
@@ -13,7 +15,9 @@ function LayoutSwitch (props) {
 
   return (
     <>
-      { props.children }
+      <Pad>
+        {/* { props.children }  */}
+      </Pad>
     </>
   )
 }
@@ -22,7 +26,7 @@ LayoutSwitch.PC = (props) => {
   // console.log(props)
   return (<>{props.children}</>)
 }
-LayoutSwitch.Pad = (props) => (<>{props.children}</>)
+LayoutSwitch.Pad = Pad
 LayoutSwitch.Phone = (props) => (<>{props.children}</>)
 
 // export default React.memo(LayoutSwitch)
