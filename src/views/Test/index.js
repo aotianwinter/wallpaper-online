@@ -99,12 +99,11 @@ function Test (props) {
         分类
       </Button>
 
-      <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
+      {/* <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
         <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} visible={sidebarShow}>
         </VerticalSidebar>
         <Sidebar.Pusher onClick={() => setSidebarShow(false) } dimmed={sidebarShow}>
           <Segment basic>
-            {/* { !isLoading ? <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/> : <ImgPlaceholder/> } */}
             <InfiniteScroll
               initialLoad={true}
               pageStart={0}
@@ -117,9 +116,9 @@ function Test (props) {
             { isLoading ? <ImgPlaceholder/> : null }
           </Segment>
         </Sidebar.Pusher>
-      </Sidebar.Pushable>
+      </Sidebar.Pushable> */}
 
-      {/* <InfiniteScroll
+      <InfiniteScroll
         initialLoad={true}
         pageStart={0}
         loadMore={ () => loadMoreImgs() }
@@ -128,7 +127,7 @@ function Test (props) {
       >
         <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
       </InfiniteScroll>
-      { isLoading ? <ImgPlaceholder/> : null } */}
+      { isLoading ? <ImgPlaceholder/> : null }
 
       <ImgPreview handleClick={ () => handlePreviewImg() }
         url={ previewImg.url } visible={ isPreview }

@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
-import { Dimmer, Image, Transition } from 'semantic-ui-react'
+import { Button, Image, Transition } from 'semantic-ui-react'
 
 function ImgView (props) {
-  const { url } = props.data
-  // const [visible, setVisible] = useState(false)
+  const { url } = props
+  const [visible, setVisible] = useState(false)
+
+  setTimeout(() => {
+    setVisible(true)
+  }, 100)
 
   return (
-    // <Transition visible={visible} animation='scale' duration={500}>
-      <Image onClick={ props.handleClick } src={url}/>
-    // </Transition>
+    <>
+      <Transition visible={visible} animation='scale' duration={500}>
+        <Image src={url}/>
+      </Transition>
+    </>
   )
 }
 

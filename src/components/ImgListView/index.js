@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Image } from 'semantic-ui-react'
+import { Image, Transition } from 'semantic-ui-react'
+import LazyLoad from 'react-lazyload'
+import ImgView from '../../basicUI/ImgView'
 
 function ImgListView (props) {
   const imgList = props.data
@@ -10,9 +12,11 @@ function ImgListView (props) {
         <div key={item.id}
           style={{ display: 'inline-block', width: '50%' }}
         >
-          <Image onClick={() => props.handleImgViewClick(item)}
-            style={{ width: '100%' }} src={item.url}/>
-          {/* <ImgView handleClick={() => setPreview(item)} data={item}></ImgView> */}
+          <LazyLoad throttle={200} height={300}>
+            <ImgView onClick={() => props.handleImgViewClick(item)} url={item.url} />
+            {/* <Image onClick={() => props.handleImgViewClick(item)}
+              style={{ width: '100%' }} src={item.url}/> */}
+          </LazyLoad>
         </div>
       )
     }) : null

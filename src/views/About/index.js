@@ -20,7 +20,6 @@ function PageAbout (props) {
         <LayoutSwitch.Pad>
           <p>Pad</p>
           <p>Pad</p>
-          <p>Pad</p>
         </LayoutSwitch.Pad>
         <LayoutSwitch.Phone>
           <p>Phone</p>
