@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createRef } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import VerticalSidebar from '../../components/Sidebar'
 // import LazyLoad from 'react-lazyload'
 import ImgListView from '../../components/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
-import { Placeholder, Sidebar, Segment, Button } from 'semantic-ui-react'
+import { Placeholder, Transition, Button, Sticky, Ref } from 'semantic-ui-react'
 
 import { getCategories, getPictureList } from '../../api/getData'
 
@@ -67,6 +67,7 @@ function Test (props) {
       setPreviewImg({})
       setIsPreview(false)
     } else {
+      console.log('xianshi le ')
       setPreviewImg(img)
       setIsPreview(true)
     }
@@ -93,42 +94,39 @@ function Test (props) {
     )
   }
 
+  const contextRef = createRef()
+
   return (
     <div>
-      <Button onClick={() => setSidebarShow(true)} circular color='teal'>
+      
+      <Button onClick={() => setSidebarShow(!sidebarShow)} circular color='teal'>
         分类
       </Button>
-
-      {/* <Sidebar.Pushable style={{ minHeight: '100vh' }} as={Segment}>
-        <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} visible={sidebarShow}>
-        </VerticalSidebar>
-        <Sidebar.Pusher onClick={() => setSidebarShow(false) } dimmed={sidebarShow}>
-          <Segment basic>
-            <InfiniteScroll
-              initialLoad={true}
-              pageStart={0}
-              loadMore={ () => loadMoreImgs() }
-              hasMore={!isLoading && imgList.length !== 0}
-              threshold={50}
-            >
-              <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
-            </InfiniteScroll>
-            { isLoading ? <ImgPlaceholder/> : null }
-          </Segment>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable> */}
-
-      <InfiniteScroll
-        initialLoad={true}
-        pageStart={0}
-        loadMore={ () => loadMoreImgs() }
-        hasMore={!isLoading && imgList.length !== 0}
-        threshold={50}
-      >
-        <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
-      </InfiniteScroll>
-      { isLoading ? <ImgPlaceholder/> : null }
-
+      <Ref innerRef={contextRef}>
+      <div style={{ display: 'flex' }}>
+        <Sticky context={contextRef}>
+        <Transition visible={sidebarShow} animation='fade right' duration={500}>
+          <div>
+            <VerticalSidebar style={{ display: 'absolute', top: '100px' }} handleClick={item => changeImgType(item)} data={typeList}>
+            </VerticalSidebar>
+          </div>
+        </Transition>
+        </Sticky>
+        <div style={{flex: '1'}}>11
+          {/* <InfiniteScroll
+            initialLoad={true}
+            pageStart={0}
+            loadMore={ () => loadMoreImgs() }
+            hasMore={!isLoading && imgList.length !== 0}
+            threshold={50}
+          >
+            <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
+          </InfiniteScroll>
+          { isLoading ? <ImgPlaceholder/> : null } */}
+        </div>
+      </div>
+      {/* 预览图 */}
+      </Ref>
       <ImgPreview handleClick={ () => handlePreviewImg() }
         url={ previewImg.url } visible={ isPreview }
       />

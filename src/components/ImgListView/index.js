@@ -13,9 +13,10 @@ function ImgListView (props) {
           style={{ display: 'inline-block', width: '50%' }}
         >
           <LazyLoad throttle={200} height={300}>
-            <ImgView onClick={() => props.handleImgViewClick(item)} url={item.url} />
-            {/* <Image onClick={() => props.handleImgViewClick(item)}
-              style={{ width: '100%' }} src={item.url}/> */}
+            {/* <ImgView onClick={() => {console.log(111)}} url={item.url} /> */}
+            {/* props.handleImgViewClick(item) */}
+            <Image onClick={() => props.handleImgViewClick(item)}
+              style={{ width: '100%' }} src={item.url}/>
           </LazyLoad>
         </div>
       )

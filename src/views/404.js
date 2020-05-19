@@ -3,9 +3,9 @@ import { Header } from 'semantic-ui-react'
 
 function Page404 () {
   return (
-    <Header as='h1'>
-      404！
-    </Header>
+    <div>
+      <Header as='h1'>404！</Header>
+    </div>
   )
 }
 
