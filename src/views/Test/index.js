@@ -4,7 +4,8 @@ import VerticalSidebar from '../../components/Sidebar'
 // import LazyLoad from 'react-lazyload'
 import ImgListView from '../../components/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
-import { Placeholder, Transition, Button, Sticky, Ref } from 'semantic-ui-react'
+import ThreeRowLayout from '../../layouts/ThreeRowLayout'
+import { Placeholder, Transition, Button } from 'semantic-ui-react'
 
 import { getCategories, getPictureList } from '../../api/getData'
 
@@ -67,7 +68,6 @@ function Test (props) {
       setPreviewImg({})
       setIsPreview(false)
     } else {
-      console.log('xianshi le ')
       setPreviewImg(img)
       setIsPreview(true)
     }
@@ -98,21 +98,16 @@ function Test (props) {
 
   return (
     <div>
-      
-      <Button onClick={() => setSidebarShow(!sidebarShow)} circular color='teal'>
-        分类
-      </Button>
-      <Ref innerRef={contextRef}>
-      <div style={{ display: 'flex' }}>
-        <Sticky context={contextRef}>
-        <Transition visible={sidebarShow} animation='fade right' duration={500}>
-          <div>
-            <VerticalSidebar style={{ display: 'absolute', top: '100px' }} handleClick={item => changeImgType(item)} data={typeList}>
-            </VerticalSidebar>
-          </div>
-        </Transition>
-        </Sticky>
-        <div style={{flex: '1'}}>11
+      <ThreeRowLayout>
+        <Button onClick={() => {setSidebarShow(!sidebarShow); console.log(111) }} circular color='teal'>
+          分类
+        </Button>
+        <ThreeRowLayout.LeftStickyRow>
+          <Transition visible={ !sidebarShow } animation='fade right' duration={500} >
+            <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
+          </Transition>
+        </ThreeRowLayout.LeftStickyRow>
+        <ThreeRowLayout.CenterRow>
           {/* <InfiniteScroll
             initialLoad={true}
             pageStart={0}
@@ -123,10 +118,18 @@ function Test (props) {
             <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
           </InfiniteScroll>
           { isLoading ? <ImgPlaceholder/> : null } */}
-        </div>
-      </div>
+          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+        </ThreeRowLayout.CenterRow>
+        <ThreeRowLayout.RightRow>
+          { sidebarShow ? 123 : 321 }
+        </ThreeRowLayout.RightRow>
+      </ThreeRowLayout>
       {/* 预览图 */}
-      </Ref>
       <ImgPreview handleClick={ () => handlePreviewImg() }
         url={ previewImg.url } visible={ isPreview }
       />
