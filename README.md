@@ -1,68 +1,60 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# my-picture-online
+🎉Power Design By 打酱油🎉
 
-## Available Scripts
+**待实现：**
+🎉safari暂不支持下载(调用百度下载链接可以实现)
+🎉优化预览
+🎉追加内容时逐步追加（pre 300ms）
 
-In the project directory, you can run:
+## 项目简介
+> 该项目是基于`React Hook` + `semantic ui react`实现，提供在线壁纸服务的前端浏览服务。
 
-### `yarn start`
+**在线地址：** [点击预览](192.168.0.223)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 配置说明
+- 头部导航栏配置：
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+`src/config/nav,js`
+```js
+/*
+  导航栏配置说明：
+    titleIcon 标题图片
+    titleText 标题文字
+    activeItem 默认激活菜单项（值应对应菜单项key值）
+    textColor 菜单项默认文字颜色（不含标题文字）
+    activeColor 菜单项默认激活颜色（现支持：red orange yellow olive green teal blue violet purple pink brown grey black）
+    leftMenu 左侧菜单组
+    rightMenu 右侧菜单组
+    
+    普通子菜单项：
+      {
+        key: 'Main',
+        title: '主页',
+        href: '/test/1'
+      }
+    外部链接跳转：
+      {
+        key: 'GitHub',
+        title: 'GitHub',
+        href: 'www.github.com',
+        externalLink: true // 设置为true表示为外部链接，否则为站内地址
+      }
+    多级子菜单（subitems中追加即可）：
+      {
+        key: 'Main2',
+        title: '分类',
+        subitems: [
+          {
+            key: 'AA',
+            title: 'AA',
+            href: '/AA'
+          },
+          {
+            key: 'BB',
+            title: 'BB',
+            href: '/BB'
+          }
+        ]
+      }
+*/
+```

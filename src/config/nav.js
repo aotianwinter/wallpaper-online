@@ -18,7 +18,7 @@
       {
         key: 'GitHub',
         title: 'GitHub',
-        href: 'www.GitHub.com',
+        href: 'www.github.com',
         externalLink: true // 设置为true表示为外部链接，否则为站内地址
       }
     多级子菜单（subitems中追加即可）：
@@ -69,7 +69,7 @@ const menus = {
   },{
     key: 'GitHub',
     title: 'GitHub',
-    href: 'www.GitHub.com',
+    href: 'www.github.com',
     externalLink: true
   }],
   rightMenu: [{

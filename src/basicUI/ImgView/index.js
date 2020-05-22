@@ -7,6 +7,7 @@ function ImgView (props) {
 
   const filterUrl = () => {
     const array = url.split('/')
+    // 过滤url为低分辨率图片，防止加载时间较长
     return array[0] + '//' + array[2] + '/bdm' + '/640_395_85/' + array[5]
   }
 
