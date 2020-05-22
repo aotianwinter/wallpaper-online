@@ -1,19 +1,20 @@
-import React, { useState } from 'react'
-import { Button, Image, Transition } from 'semantic-ui-react'
+import React from 'react'
+import { Image } from 'semantic-ui-react'
+import LazyLoad from 'react-lazyload'
 
 function ImgView (props) {
   const { url } = props
-  const [visible, setVisible] = useState(false)
 
-  setTimeout(() => {
-    setVisible(true)
-  }, 100)
+  const filterUrl = () => {
+    const array = url.split('/')
+    return array[0] + '//' + array[2] + '/bdm' + '/640_395_85/' + array[5]
+  }
 
   return (
     <>
-      <Transition visible={visible} animation='scale' duration={500}>
-        <Image src={url}/>
-      </Transition>
+      <LazyLoad throttle={200} height={300}>
+        <Image onClick={ () => props.handleImgClick() } src={ filterUrl() }/>
+      </LazyLoad>
     </>
   )
 }

@@ -1,45 +1,76 @@
-// import icon from '../../assets/icon.png'
+/*
+  导航栏配置说明：
+    titleIcon 标题图片
+    titleText 标题文字
+    activeItem 默认激活菜单项（值应对应菜单项key值）
+    textColor 菜单项默认文字颜色（不含标题文字）
+    activeColor 菜单项默认激活颜色（现支持：red orange yellow olive green teal blue violet purple pink brown grey black）
+    leftMenu 左侧菜单组
+    rightMenu 右侧菜单组
+    
+    普通子菜单项：
+      {
+        key: 'Main',
+        title: '主页',
+        href: '/test/1'
+      }
+    外部链接跳转：
+      {
+        key: 'GitHub',
+        title: 'GitHub',
+        href: 'www.GitHub.com',
+        externalLink: true // 设置为true表示为外部链接，否则为站内地址
+      }
+    多级子菜单（subitems中追加即可）：
+      {
+        key: 'Main2',
+        title: '分类',
+        subitems: [
+          {
+            key: 'AA',
+            title: 'AA',
+            href: '/AA'
+          },
+          {
+            key: 'BB',
+            title: 'BB',
+            href: '/BB'
+          }
+        ]
+      }
+*/
+import icon from '../assets/icon.png'
 
 const menus = {
-  // titleIcon: icon,
+  titleIcon: icon,
   titleText: '2333',
   activeItem: 'Main',
   textColor: 'white',
-  activeColor: 'red',
+  activeColor: 'teal',
   leftMenu: [{
     key: 'Main',
     title: '主页',
-    subitems: [
-      {
-        key: '111',
-        title: 'test111',
-        href: '/test/1'
-      },
-      {
-        key: '222',
-        title: 'test222',
-        href: '/test/2'
-      }
-    ]
+    href: '/test/1'
   },{
     key: 'Main2',
-    title: '主页2',
+    title: '分类',
     subitems: [
       {
-        key: '1112',
-        title: '2test111',
-        href: '/test/1'
+        key: 'AA',
+        title: 'AA',
+        href: '/AA'
       },
       {
-        key: '2222',
-        title: '2test222',
-        href: '/test/2'
+        key: 'BB',
+        title: 'BB',
+        href: '/BB'
       }
     ]
   },{
-    key: 'Other',
-    title: '其他',
-    href: '/about'
+    key: 'GitHub',
+    title: 'GitHub',
+    href: 'www.GitHub.com',
+    externalLink: true
   }],
   rightMenu: [{
     key: 'Donate',

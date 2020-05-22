@@ -1,7 +1,6 @@
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import VerticalSidebar from '../../components/Sidebar'
-// import LazyLoad from 'react-lazyload'
 import ImgListView from '../../components/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
 import ThreeRowLayout from '../../layouts/ThreeRowLayout'
@@ -74,6 +73,8 @@ function Test (props) {
   }
 
   const changeImgType = (item) => {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
     setImgList([])
     setQueryInfo({...queryInfo, type: item.key, start: 0, count: 30})
   }
@@ -94,8 +95,6 @@ function Test (props) {
     )
   }
 
-  const contextRef = createRef()
-
   return (
     <div>
       <ThreeRowLayout>
@@ -108,7 +107,7 @@ function Test (props) {
           </Transition>
         </ThreeRowLayout.LeftStickyRow>
         <ThreeRowLayout.CenterRow>
-          {/* <InfiniteScroll
+          <InfiniteScroll
             initialLoad={true}
             pageStart={0}
             loadMore={ () => loadMoreImgs() }
@@ -117,13 +116,7 @@ function Test (props) {
           >
             <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
           </InfiniteScroll>
-          { isLoading ? <ImgPlaceholder/> : null } */}
-          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
-          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
-          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
-          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
-          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
-          <p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p><p>123</p>
+          { isLoading ? <ImgPlaceholder/> : null }
         </ThreeRowLayout.CenterRow>
         <ThreeRowLayout.RightRow>
           { sidebarShow ? 123 : 321 }

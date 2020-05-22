@@ -53,7 +53,7 @@ function PhoneNav (props) {
                   <Accordion.Content style={{padding: '0px'}} key={i.key} active={activeIndex === item.key}>
                     <Menu.Item style={{ paddingLeft: '3rem', color: props.data.textColor, background: '#1B1C1D' }}
                       onClick={() => handleMenuClick(i) }>
-                      { item.title }
+                      { i.title }
                     </Menu.Item>
                   </Accordion.Content>
                 )

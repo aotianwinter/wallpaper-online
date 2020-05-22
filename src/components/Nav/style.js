@@ -28,7 +28,7 @@ export const PhoneNavWrapper = styled.div`
   width: 100%;
   height: 100vh;
   display: block;
-  margin-top: 49px;
+  margin-top: 48px;
   background: black;
   z-index: 1000;
 `

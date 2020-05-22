@@ -21,13 +21,14 @@ function Nav (props) {
     listenScreenWidth(x) // 执行时调用的监听函数
     x.addListener(listenScreenWidth) // 状态改变时添加监听器
     return () => {
-      x.removeListener(listenScreenWidth)
+      x.removeListener(listenScreenWidth) // 销毁时移除监听器
     }
   }, [])
 
   const handleMenuClick = (menu) => {
     setActiveItem(menu.key)
-    props.history.push(menu.href)
+    console.log(menu)
+    menu.externalLink ? window.open('//' + menu.href) : props.history.push(menu.href)
   }
 
   const menuView = (menus) => {
@@ -65,8 +66,7 @@ function Nav (props) {
       color={props.data.activeColor} pointing secondary
     >
       <Menu.Item header>
-        {/* <img style={{ height: '18px', width: '18px' }} 
-          src={props.data.titleIcon}/> */}
+        <img style={{ height: '18px', width: '18px' }} src={props.data.titleIcon}/>
         <span style={{ color: 'white', marginLeft: '10px' }}>
           { props.data.titleText }
         </span>
@@ -80,7 +80,7 @@ function Nav (props) {
             { menuView(props.data.rightMenu) }
           </Menu.Menu>
         </>
-      ) : ( 
+      ) : (
         <Menu.Menu position='right'>
           <Menu.Item>
             <PhoneNav data={props.data}></PhoneNav>

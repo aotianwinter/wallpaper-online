@@ -19,7 +19,7 @@ const ThreeRowLayout = (props) => {
   
   return (
     <Grid style={{ margin: '20px 0' }}>
-      <Grid.Column>
+      <Grid.Column width={ 2 }>
         <Sticky context={contextRef} offset={100}>
           <div>{ autoSlot(LeftStickyRow) }</div>
         </Sticky>
