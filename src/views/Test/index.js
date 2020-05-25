@@ -98,10 +98,10 @@ function Test (props) {
   return (
     <div>
       <ThreeRowLayout>
-        <Button onClick={() => {setSidebarShow(!sidebarShow); console.log(111) }} circular color='teal'>
-          分类
-        </Button>
         <ThreeRowLayout.LeftStickyRow>
+          <Button onClick={() => { setSidebarShow(sidebarShow => !sidebarShow) }} circular color='teal'>
+            分类
+          </Button>
           <Transition visible={ !sidebarShow } animation='fade right' duration={500} >
             <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
           </Transition>

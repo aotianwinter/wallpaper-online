@@ -18,23 +18,21 @@ const ThreeRowLayout = (props) => {
   }
   
   return (
-    <Grid style={{ margin: '20px 0' }}>
-      <Grid.Column width={ 2 }>
-        <Sticky context={contextRef} offset={100}>
+    <div style={{ display: 'flex', margin: '20px 0' }}>
+      <div style={{ width: '100px' }}>
+        <Sticky context={contextRef} offset={60}>
           <div>{ autoSlot(LeftStickyRow) }</div>
         </Sticky>
-      </Grid.Column>
-      <Grid.Column width={ 12 }>
-        <Ref innerRef={contextRef}>
-        <div>
+      </div>
+      <Ref innerRef={contextRef}>
+        <div style={{ flex: '1' }}>
           { autoSlot(CenterRow) }
         </div>
-        </Ref>
-      </Grid.Column>
-      <Grid.Column>
+      </Ref>
+      {/* <div style={{ width: '100px' }}>
         { autoSlot(RightRow) }
-      </Grid.Column>
-    </Grid>
+      </div> */}
+    </div>
   )
 }
 
