@@ -4,7 +4,7 @@ import { Icon, Menu, Accordion, Transition } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 function PhoneNav (props) {
-  const [activeIndex, setActiveItem] = useState('')
+  const [activeIndex, setActiveIndex] = useState('') // 激活的菜单组展开项
   const [visible, setVisible] = useState(false)
   const emList = document.getElementsByClassName('phone-nav-em')
 
@@ -24,7 +24,8 @@ function PhoneNav (props) {
   }
 
   const handleMenuClick = (menu) => {
-    props.history.push(menu.href)
+    props.handlePhoneNavClick(menu)
+    // props.history.push(menu.href)
     setVisible(false)
     emList[0].style.transform = ''
     emList[1].style.transition = 'all 0.5s ease 0.2s'
@@ -42,7 +43,7 @@ function PhoneNav (props) {
               as={Menu.Header}
               active={activeIndex === item.key}
               index={0}
-              onClick={() => setActiveItem(activeIndex === item.key ? '-1' : item.key)}
+              onClick={() => setActiveIndex(activeIndex === item.key ? '-1' : item.key)}
             >
               <Icon name='dropdown' />
               { item.title }

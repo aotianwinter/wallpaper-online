@@ -1,5 +1,5 @@
 import React from 'react'
-import ImgView from '../../basicUI/ImgView'
+import ImgView from '../ImgView'
 
 function ImgListView (props) {
   const imgList = props.data

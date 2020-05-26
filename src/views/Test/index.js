@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import VerticalSidebar from '../../components/Sidebar'
-import ImgListView from '../../components/ImgListView'
+import ImgListView from '../../basicUI/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
 import ThreeRowLayout from '../../layouts/ThreeRowLayout'
 import { Placeholder, Transition, Button } from 'semantic-ui-react'

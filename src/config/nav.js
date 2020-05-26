@@ -1,8 +1,19 @@
 /*
+  Tip:
+    导航栏会根据URL自动确定当前页面对应激活菜单项。
+    配置默认根路由跳转的URL，即可设置默认激活子菜单。
+    例如：
+      '/' => '/test' 根路由跳转
+      {
+        key: 'Main',
+        title: '主页',
+        href: '/test'
+      }
+      会自动激活 主页 菜单项
+  
   导航栏配置说明：
     titleIcon 标题图片
     titleText 标题文字
-    activeItem 默认激活菜单项（值应对应菜单项key值）
     textColor 菜单项默认文字颜色（不含标题文字）
     activeColor 菜单项默认激活颜色（现支持：red orange yellow olive green teal blue violet purple pink brown grey black）
     leftMenu 左侧菜单组
@@ -44,7 +55,6 @@ import icon from '../assets/icon.png'
 const menus = {
   titleIcon: icon,
   titleText: '2333',
-  activeItem: 'Main',
   textColor: 'white',
   activeColor: 'teal',
   leftMenu: [{

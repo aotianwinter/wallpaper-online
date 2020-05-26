@@ -1,5 +1,5 @@
 import React, { createRef } from 'react'
-import { Sticky, Ref, Segment, Grid } from 'semantic-ui-react'
+import { Sticky, Ref } from 'semantic-ui-react'
 
 const LeftStickyRow = (props) => (<>{props.children}</>)
 const CenterRow = (props) => (<>{props.children}</>)
@@ -10,11 +10,16 @@ const ThreeRowLayout = (props) => {
   const contextRef = createRef()
 
   const autoSlot = (comp) => {
-    return children.map((item, index) => {
-      if (item.type === comp) {
-        return (<div key={index}>{item}</div>)
+    // return children.map((item, index) => {
+    //   if (item.type === comp) {
+    //     return (<div key={index}>{item}</div>)
+    //   }
+    // })
+    for (let index in children) {
+      if (children[index].type === comp) {
+        return (<div key={index}>{children[index]}</div>)
       }
-    })
+    }
   }
   
   return (

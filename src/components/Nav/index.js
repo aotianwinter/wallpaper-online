@@ -4,7 +4,32 @@ import { withRouter } from 'react-router-dom'
 import PhoneNav from './PhoneNav'
 
 function Nav (props) {
-  const [activeItem, setActiveItem] = useState(props.data.activeItem)
+  // 根据path获取activeItem
+  const getActiveItemByPathName = (menus, pathname) => {
+    for (let item of menus) {
+      if (item.subitems && item.subitems.length > 0) {
+        for (let i of item.subitems) {
+          if (i.href === pathname) {
+            return i.key
+          }
+        }
+      }
+      if (item.href === pathname) {
+        return item.key
+      }
+    }
+    // no match
+    return ''
+  }
+
+  const selectActiveItem = () => {
+    const pathname = props.location.pathname
+    const val = getActiveItemByPathName(props.data.leftMenu, pathname)
+    return val === '' ? getActiveItemByPathName(props.data.rightMenu, pathname) : val
+    // return val
+  }
+
+  const [activeItem, setActiveItem] = useState(selectActiveItem())
   const [phoneNavShow, setPhoneNavShow] = useState(false)
 
   const x = window.matchMedia('(max-width: 900px)')
@@ -23,14 +48,18 @@ function Nav (props) {
     return () => {
       x.removeListener(listenScreenWidth) // 销毁时移除监听器
     }
-  }, [])
+  }, [x])
 
   const handleMenuClick = (menu) => {
-    setActiveItem(menu.key)
-    console.log(menu)
-    menu.externalLink ? window.open('//' + menu.href) : props.history.push(menu.href)
+    if (menu.externalLink) {
+      window.open('//' + menu.href)
+    } else {
+      setActiveItem(menu.key)
+      props.history.push(menu.href)
+    }
   }
 
+  // 根据菜单配置信息遍历生成菜单组
   const menuView = (menus) => {
     return menus.map((item) => {
       return item.subitems && item.subitems.length ?
@@ -83,7 +112,7 @@ function Nav (props) {
       ) : (
         <Menu.Menu position='right'>
           <Menu.Item>
-            <PhoneNav data={props.data}></PhoneNav>
+            <PhoneNav data={props.data} handlePhoneNavClick={menu => handleMenuClick(menu)}></PhoneNav>
           </Menu.Item>
         </Menu.Menu>
         )
