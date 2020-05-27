@@ -1,11 +1,10 @@
 import React from 'react'
-import { Header } from 'semantic-ui-react'
+import Exception from '../components/Exception'
 
 function Page404 () {
   return (
-    <div>
-      <Header as='h1'>404！</Header>
-    </div>
+    <Exception type='404'>
+    </Exception>
   )
 }
 
