@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { PhoneNavBt, PhoneNavWrapper } from './style'
 import { Icon, Menu, Accordion, Transition } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
 
 function PhoneNav (props) {
   const [activeIndex, setActiveIndex] = useState('') // 激活的菜单组展开项
@@ -25,13 +24,11 @@ function PhoneNav (props) {
 
   const handleMenuClick = (menu) => {
     props.handlePhoneNavClick(menu)
-    // props.history.push(menu.href)
     setVisible(false)
     emList[0].style.transform = ''
     emList[1].style.transition = 'all 0.5s ease 0.2s'
     emList[1].style.opacity = '1'
     emList[2].style.transform = ''
-
   }
 
   const menuView = (menus) => {
@@ -90,4 +87,4 @@ function PhoneNav (props) {
   )
 }
 
-export default withRouter(React.memo(PhoneNav))
+export default React.memo(PhoneNav)

@@ -124,7 +124,7 @@ function Test (props) {
       </ThreeRowLayout>
       {/* 预览图 */}
       <ImgPreview handleClick={ () => handlePreviewImg() }
-        url={ previewImg.url } visible={ isPreview }
+        url={ previewImg.url } visible={ isPreview } tag={ previewImg.utag }
       />
     </div>
   )

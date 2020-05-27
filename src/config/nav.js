@@ -18,6 +18,7 @@
     activeColor 菜单项默认激活颜色（现支持：red orange yellow olive green teal blue violet purple pink brown grey black）
     leftMenu 左侧菜单组
     rightMenu 右侧菜单组
+    （菜单顺序与菜单项配置先后顺序一致）
     
     普通子菜单项：
       {

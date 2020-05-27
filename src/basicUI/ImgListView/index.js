@@ -10,7 +10,7 @@ function ImgListView (props) {
         <div key={item.id}
           style={{ display: 'inline-block', width: '50%' }}
         >
-          <ImgView handleImgClick={() => props.handleImgViewClick(item)} url={item.url} />
+          <ImgView handleImgClick={() => props.handleImgViewClick(item)} url={item.url} tag={ item.utag }/>
         </div>
       )
     }) : null

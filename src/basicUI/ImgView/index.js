@@ -5,7 +5,7 @@ import LazyLoad from 'react-lazyload'
 import './fade.css'
 
 function ImgView (props) {
-  const { url } = props
+  const { url, tag } = props
 
   const filterUrl = () => {
     const array = url.split('/')
@@ -24,7 +24,7 @@ function ImgView (props) {
           timeout={300}
           unmountOnExit={true}
           >
-          <Image onClick={ () => props.handleImgClick() } src={ filterUrl() } />
+          <Image onClick={ () => props.handleImgClick() } src={ filterUrl() } title={ tag } alt={ tag } />
         </CSSTransition>
       </LazyLoad>
     </>
