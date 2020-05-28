@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
+import { Placeholder, Transition, Button } from 'semantic-ui-react'
+
 import VerticalSidebar from '../../components/Sidebar'
 import ImgListView from '../../basicUI/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
+import DownloadModal from '../../basicUI/DownloadModal'
 import ThreeRowLayout from '../../layouts/ThreeRowLayout'
-import { Placeholder, Transition, Button } from 'semantic-ui-react'
 
 import { getCategories, getPictureList } from '../../api/getData'
 
@@ -12,10 +14,11 @@ function Test (props) {
   const [queryInfo, setQueryInfo] = useState({type: 5, start: 0, count: 30}) // query info
   const [isLoading, setIsLoading] = useState(true) // is loading
   const [isPreview, setIsPreview] = useState(false) // is preview
+  const [isDownload, setIsDownload] = useState(false) // is download
 
+  const [currentImg, setCurrentImg] = useState({}) // current img info
   const [imgList, setImgList] = useState([])
   const [typeList, setTypeList] = useState([])
-  const [previewImg, setPreviewImg] = useState({}) // preview img info
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
 
   //  TODO 节流实现图片请求获取
@@ -63,13 +66,15 @@ function Test (props) {
   }
 
   const handlePreviewImg = (img) => {
-    if (isPreview) {
-      setPreviewImg({})
-      setIsPreview(false)
-    } else {
-      setPreviewImg(img)
-      setIsPreview(true)
-    }
+    setCurrentImg(img)
+    setIsDownload(true)
+    // if (isPreview) {
+    //   setPreviewImg({})
+    //   setIsPreview(false)
+    // } else {
+    //   setPreviewImg(img)
+    //   setIsPreview(true)
+    // }
   }
 
   const changeImgType = (item) => {
@@ -99,12 +104,12 @@ function Test (props) {
     <div>
       <ThreeRowLayout>
         <ThreeRowLayout.LeftStickyRow>
-          <Button onClick={() => { setSidebarShow(sidebarShow => !sidebarShow) }} circular color='teal'>
+          {/* <Button onClick={() => { setSidebarShow(sidebarShow => !sidebarShow) }} circular color='teal'>
             分类
           </Button>
           <Transition visible={ !sidebarShow } animation='fade right' duration={500} >
-            <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
-          </Transition>
+          </Transition> */}
+          <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
         </ThreeRowLayout.LeftStickyRow>
         <ThreeRowLayout.CenterRow>
           <InfiniteScroll
@@ -123,9 +128,11 @@ function Test (props) {
         </ThreeRowLayout.RightRow>
       </ThreeRowLayout>
       {/* 预览图 */}
-      <ImgPreview handleClick={ () => handlePreviewImg() }
+      {/* <ImgPreview handleClick={ () => handlePreviewImg() }
         url={ previewImg.url } visible={ isPreview } tag={ previewImg.utag }
-      />
+      /> */}
+      {/* 下载选项 */}
+      <DownloadModal visible={ isDownload } onClose={ () => setIsDownload(false) } downloadImg={ currentImg } />
     </div>
   )
 }
