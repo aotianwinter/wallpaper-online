@@ -4,7 +4,6 @@ import { Divider, Image, Label } from 'semantic-ui-react'
 
 function Footer (props) {
   const { leftRow, centerRow, rightRow, author, copyright } = props.data
-  console.log(leftRow)
 
   return (
     <FooterWrap>
