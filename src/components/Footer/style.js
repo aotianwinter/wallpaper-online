@@ -25,10 +25,11 @@ export const FooterWrap = styled.footer`
       font-size: 18px;
     }
 
-    .item__wrap {
+    .links__wrap {
       color: gray;
       margin-top: 20px;
-      p {
+      a {
+        display: block;
         margin-top: 4px;
         &:hover {
           color: teal;

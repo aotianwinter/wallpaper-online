@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom'
 import PhoneNav from './PhoneNav'
 
 function Nav (props) {
+  const { titleIcon, titleText, textColor, activeColor, leftMenu, rightMenu } = props.data
+
   // 根据path获取activeItem
   const getActiveItemByPathName = (menus, pathname) => {
     for (let item of menus) {
@@ -24,8 +26,8 @@ function Nav (props) {
 
   const selectActiveItem = () => {
     const pathname = props.location.pathname
-    const val = getActiveItemByPathName(props.data.leftMenu, pathname)
-    return val === '' ? getActiveItemByPathName(props.data.rightMenu, pathname) : val
+    const val = getActiveItemByPathName(leftMenu, pathname)
+    return val === '' ? getActiveItemByPathName(leftMenu, pathname) : val
     // return val
   }
 
@@ -64,7 +66,7 @@ function Nav (props) {
     return menus.map((item) => {
       return item.subitems && item.subitems.length ?
         (
-        <Dropdown key={item.key} item text={item.title} style={{ color: props.data.textColor }}>
+        <Dropdown key={item.key} item text={item.title} style={{ color: textColor }}>
           <Dropdown.Menu>
             {
               item.subitems.map((i) => {
@@ -81,7 +83,7 @@ function Nav (props) {
       (
         <Menu.Item key={item.key}
           active={activeItem === item.key}
-          style={{ color: props.data.textColor }}
+          style={{ color: textColor }}
           onClick={ () => handleMenuClick(item) }
         >
           { item.title }
@@ -92,21 +94,21 @@ function Nav (props) {
 
   return (
     <Menu size='huge' style={{ padding: '0 4%', background: 'black' }}
-      color={props.data.activeColor} pointing secondary
+      color={ activeColor } pointing secondary
     >
       <Menu.Item header>
-        <img style={{ height: '18px', width: '18px' }} src={props.data.titleIcon}/>
+        <img style={{ height: '18px', width: '18px' }} src={ titleIcon }/>
         <span style={{ color: 'white', marginLeft: '10px' }}>
-          { props.data.titleText }
+          { titleText }
         </span>
       </Menu.Item>
       { phoneNavShow ? (
         <>
           <Menu.Menu position='left'>
-            { menuView(props.data.leftMenu) }
+            { menuView(leftMenu) }
           </Menu.Menu>
           <Menu.Menu position='right'>
-            { menuView(props.data.rightMenu) }
+            { menuView(rightMenu) }
           </Menu.Menu>
         </>
       ) : (

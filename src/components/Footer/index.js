@@ -1,30 +1,36 @@
 import React from 'react'
 import { FooterWrap } from './style'
 import { Divider, Image, Label } from 'semantic-ui-react'
-import avatar from './dajiangyou.jpg'
 
-function Footer () {
+function Footer (props) {
+  const { leftRow, centerRow, rightRow, author, copyright } = props.data
+  console.log(leftRow)
+
   return (
     <FooterWrap>
       <div className='row-top'>
         <div className='col-left'>
-          <Image src={ require('./qrcode.png') } size='tiny'></Image>
-          <h1 className='title' style={{ marginTop: '10px' }}>Preview</h1>
+          <Image src={ leftRow.icon } size='tiny' />
+          <h1 className='title' style={{ marginTop: '10px' }}>{ leftRow.desc }</h1>
         </div>
         <div className='col-center'>
-          <h1 className='title'>文档链接</h1>
-          <div className='item__wrap'>
-            <p>React 官方文档</p>
-            <p>Semantic UI</p>
-            <p>Node</p>
+          <h1 className='title'>{ centerRow.title }</h1>
+          <div className='links__wrap'>
+            {
+              centerRow.links.map((item, index) => {
+                return <a href='#' key={index}>{ item.name }</a>
+              })
+            }
           </div>
         </div>
         <div className='col-right'>
-          <h1 className='title'>相关链接</h1>
-          <div className='item__wrap'>
-            <p>GitHub</p>
-            <p>掘金</p>
-            <p>简书</p>
+          <h1 className='title'>{ rightRow.title }</h1>
+          <div className='links__wrap'>
+            {
+              rightRow.links.map((item, index) => {
+                return <a href='#' key={index}>{ item.name }</a>
+              })
+            }
           </div>
         </div>
       </div>
@@ -32,10 +38,10 @@ function Footer () {
       <div className='row-bottom'>
         <span style={{ marginRight: '4px' }}> Design By </span>
         <Label as='a' size='mini' image>
-          <img src={avatar} />
-          打酱油
+          <img src={ author.avatar } />
+          { author.name }
         </Label>
-        <p>copyright©2020</p>
+        <p>{ copyright }</p>
       </div>
     </FooterWrap>
   )

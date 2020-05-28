@@ -53,7 +53,7 @@
 */
 import icon from '../assets/icon.png'
 
-const menus = {
+const configs = {
   titleIcon: icon,
   titleText: '2333',
   textColor: 'white',
@@ -94,4 +94,4 @@ const menus = {
   }]
 }
 
-export default menus
+export default configs

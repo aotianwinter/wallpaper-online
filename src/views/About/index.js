@@ -1,6 +1,6 @@
 import React from 'react'
 import { Header, Label } from 'semantic-ui-react'
-import avatar from '../../assets/dajiangyou.jpg'
+import avatar from '../../assets/author.jpg'
 
 function PageAbout (props) {
   return (
