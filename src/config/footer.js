@@ -3,7 +3,7 @@
     ---------------------------------------------------------------------------
     -    leftRow                    centerRow                rightRow         -
     -    # # # # #                  title                    title            -
-    -    #  ICON #                  link                     link             -
+    -    # ICON  #                  link                     link             -
     -    #       #                  link                     link             -
     -    # # # # #                  link                     link             -
     -    desc                                                                 -
