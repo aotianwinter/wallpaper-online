@@ -26,11 +26,11 @@ const configs = {
     links: [
       {
         name: 'React官方文档',
-        href: ''
+        href: 'https://react.docschina.org/'
       },
       {
         name: 'Semantic UI',
-        href: ''
+        href: 'https://react.semantic-ui.com/'
       },
       {
         name: 'Node',
@@ -43,15 +43,15 @@ const configs = {
     links: [
       {
         name: 'GitHub',
-        href: ''
+        href: 'https://github.com/aotianwinter/my-picture-online'
       },
       {
         name: '掘金',
-        href: ''
+        href: 'https://juejin.im/user/5d9c26b2f265da5b616dd1c8'
       },
       {
         name: '简书',
-        href: ''
+        href: 'https://www.jianshu.com/u/393293c79416'
       }
     ]
   },

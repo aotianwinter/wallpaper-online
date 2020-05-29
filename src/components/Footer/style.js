@@ -29,6 +29,7 @@ export const FooterWrap = styled.footer`
       color: gray;
       margin-top: 20px;
       a {
+        color: white;
         display: block;
         margin-top: 4px;
         &:hover {

@@ -4,6 +4,23 @@ import { Divider, Image, Label } from 'semantic-ui-react'
 
 function Footer (props) {
   const { leftRow, centerRow, rightRow, author, copyright } = props.data
+  
+  // 根据row配置信息遍历生成
+  const rowView = (row) => {
+    return (
+      <>
+        <h1 className='title'>{ row.title }</h1>
+        <div className='links__wrap'>
+          {
+            row.links.length > 0 ?
+              row.links.map((item, index) => {
+                return <a href={ `${ item.href }` } target='_blank' key={index}>{ item.name }</a>
+              }) : null
+          }
+        </div>
+      </>
+    )
+  }
 
   return (
     <FooterWrap>
@@ -13,24 +30,10 @@ function Footer (props) {
           <h1 className='title' style={{ marginTop: '10px' }}>{ leftRow.desc }</h1>
         </div>
         <div className='col-center'>
-          <h1 className='title'>{ centerRow.title }</h1>
-          <div className='links__wrap'>
-            {
-              centerRow.links.map((item, index) => {
-                return <a href='#' key={index}>{ item.name }</a>
-              })
-            }
-          </div>
+          { rowView(centerRow) }
         </div>
         <div className='col-right'>
-          <h1 className='title'>{ rightRow.title }</h1>
-          <div className='links__wrap'>
-            {
-              rightRow.links.map((item, index) => {
-                return <a href='#' key={index}>{ item.name }</a>
-              })
-            }
-          </div>
+          { rowView(rightRow) }
         </div>
       </div>
       <Divider />
