@@ -3,8 +3,7 @@ import Exception from '../components/Exception'
 
 function Page404 () {
   return (
-    <Exception type='404'>
-    </Exception>
+    <Exception type='404' />
   )
 }
 
