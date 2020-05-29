@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Placeholder, Transition, Button } from 'semantic-ui-react'
 
@@ -11,7 +12,7 @@ import ThreeRowLayout from '../../layouts/ThreeRowLayout'
 import { getCategories, getPictureList } from '../../api/getData'
 
 function Test (props) {
-  const [queryInfo, setQueryInfo] = useState({type: 5, start: 0, count: 30}) // query info
+  const [queryInfo, setQueryInfo] = useState({type: props.match.params.id || 5, start: 0, count: 30}) // query info
   const [isLoading, setIsLoading] = useState(true) // is loading
   const [isPreview, setIsPreview] = useState(false) // is preview
   const [isDownload, setIsDownload] = useState(false) // is download
@@ -21,10 +22,14 @@ function Test (props) {
   const [typeList, setTypeList] = useState([])
   const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
 
+  useEffect(() => {
+    console.log(111)
+  })
+
   //  TODO 节流实现图片请求获取
   useEffect(() => {
     getTypes()
-    getData()
+    // getData()
   }, [])
 
   useEffect(() => {
@@ -38,6 +43,7 @@ function Test (props) {
   const getTypes = async () => {
     const res = await getCategories()
     let array = []
+    // 过滤限时壁纸
     Object.keys(res.data.data).map((i) => {
       if (res.data.data[i].id !== '1') {
         let temp = {}
@@ -64,10 +70,10 @@ function Test (props) {
       setIsLoading(false)
     }
   }
-
+  // 点击预览
   const handlePreviewImg = (img) => {
     setCurrentImg(img)
-    setIsDownload(true)
+    setIsPreview(true)
     // if (isPreview) {
     //   setPreviewImg({})
     //   setIsPreview(false)
@@ -76,8 +82,16 @@ function Test (props) {
     //   setIsPreview(true)
     // }
   }
+  // 点击下载
+  const handleDownloadImg = (img) => {
+    setCurrentImg(img)
+    setIsDownload(true)
+  }
 
   const changeImgType = (item) => {
+    if (item.key !== queryInfo.type) {
+      props.history.push('/test/' + item.key)
+    }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
     setImgList([])
@@ -112,15 +126,21 @@ function Test (props) {
           <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
         </ThreeRowLayout.LeftStickyRow>
         <ThreeRowLayout.CenterRow>
-          <InfiniteScroll
+          {/* <InfiniteScroll
             initialLoad={true}
             pageStart={0}
             loadMore={ () => loadMoreImgs() }
-            hasMore={!isLoading && imgList.length !== 0}
+            hasMore={ !isLoading && imgList.length !== 0 }
             threshold={50}
-          >
-            <ImgListView handleImgViewClick={ item => handlePreviewImg(item) } data={ imgList }/>
-          </InfiniteScroll>
+          > */}
+          <div style={{ minHeight: '800px' }}>
+            <ImgListView
+              handlePreview={ item => handlePreviewImg(item) }
+              handleDownload = { item => handleDownloadImg(item) }
+              data={ imgList } 
+              />
+          </div>
+          {/* </InfiniteScroll> */}
           { isLoading ? <ImgPlaceholder/> : null }
         </ThreeRowLayout.CenterRow>
         <ThreeRowLayout.RightRow>
@@ -128,13 +148,11 @@ function Test (props) {
         </ThreeRowLayout.RightRow>
       </ThreeRowLayout>
       {/* 预览图 */}
-      {/* <ImgPreview handleClick={ () => handlePreviewImg() }
-        url={ previewImg.url } visible={ isPreview } tag={ previewImg.utag }
-      /> */}
+      <ImgPreview handleClick={ () => setIsPreview(false) } visible={ isPreview } previewImg={ currentImg } />
       {/* 下载选项 */}
-      <DownloadModal visible={ isDownload } onClose={ () => setIsDownload(false) } downloadImg={ currentImg } />
+      <DownloadModal onClose={ () => setIsDownload(false) } visible={ isDownload } downloadImg={ currentImg } />
     </div>
   )
 }
 
-export default React.memo(Test)
+export default withRouter(React.memo(Test))
