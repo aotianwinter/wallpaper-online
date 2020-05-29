@@ -30,7 +30,7 @@
       {
         key: 'GitHub',
         title: 'GitHub',
-        href: 'www.github.com',
+        href: 'https://github.com/aotianwinter/my-picture-online',
         externalLink: true // 设置为true表示为外部链接，否则为站内地址
       }
     多级子菜单（subitems中追加即可）：
@@ -61,7 +61,7 @@ const configs = {
   leftMenu: [{
     key: 'Main',
     title: '主页',
-    href: '/test/1'
+    href: '/test/5'
   },{
     key: 'Main2',
     title: '分类',
@@ -80,7 +80,7 @@ const configs = {
   },{
     key: 'GitHub',
     title: 'GitHub',
-    href: 'www.github.com',
+    href: 'https://github.com/aotianwinter/my-picture-online',
     externalLink: true
   }],
   rightMenu: [{

@@ -54,7 +54,7 @@ function Nav (props) {
 
   const handleMenuClick = (menu) => {
     if (menu.externalLink) {
-      window.open('//' + menu.href)
+      window.open(menu.href)
     } else {
       setActiveItem(menu.key)
       props.history.push(menu.href)
