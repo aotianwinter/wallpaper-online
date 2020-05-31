@@ -15,11 +15,12 @@ export const ImgWrap = styled.div`
     position: absolute;
     width: 100%;
     bottom: 0px;
-    background: rgba(128, 128, 128, 0.7);
+    background: rgba(0, 0, 0, 0.4);
     padding: 4px;
     text-align: right;
 
     .tag {
+      color: white;
       float: left;
     }
   }
