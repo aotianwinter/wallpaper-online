@@ -18,6 +18,10 @@ export const ImgWrap = styled.div`
     background: rgba(128, 128, 128, 0.7);
     padding: 4px;
     text-align: right;
+
+    .tag {
+      float: left;
+    }
   }
 
 

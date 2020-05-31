@@ -5,7 +5,7 @@ function ImgPreview (props) {
   const { url, utag } = props.previewImg
 
   return (
-    <Dimmer active={ props.visible } onClickOutside={props.handleClick} page>
+    <Dimmer active={ props.visible } onClick={props.handleClick} page>
       <Image style={{ maxHeight: '90vh' }} src={ url } title={ utag } alt={ utag } />
     </Dimmer>
   )

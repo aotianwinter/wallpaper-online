@@ -26,8 +26,9 @@ function ImgView (props) {
           unmountOnExit={true}
           >
           <ImgWrap>
-            <Image src={ filterUrl() } title={ tag } alt={ tag } />
+            <Image src={ filterUrl() } title={ tag } alt={ tag } rounded />
             <div className='dim__wrap'>
+              <span className='tag'>{ tag }</span>
               <Icon onClick={ () => props.onPreviewClick() } name='eye' color='orange' />
               <Icon onClick={ () => props.onDownloadClick() } name='download' color='teal' src={ filterUrl() } />
             </div>

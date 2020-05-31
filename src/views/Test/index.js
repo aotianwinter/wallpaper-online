@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
-import { Placeholder, Transition, Button } from 'semantic-ui-react'
+import { Placeholder } from 'semantic-ui-react'
 
 import VerticalSidebar from '../../components/Sidebar'
 import ImgListView from '../../basicUI/ImgListView'
@@ -16,28 +16,20 @@ function Test (props) {
   const [isLoading, setIsLoading] = useState(true) // is loading
   const [isPreview, setIsPreview] = useState(false) // is preview
   const [isDownload, setIsDownload] = useState(false) // is download
+  const [isFinished, setIsFinished] = useState(false) // is finished
 
   const [currentImg, setCurrentImg] = useState({}) // current img info
   const [imgList, setImgList] = useState([])
   const [typeList, setTypeList] = useState([])
-  const [sidebarShow, setSidebarShow] = useState(false) // is sidebar visible
 
-  useEffect(() => {
-    console.log(111)
-  })
-
-  //  TODO 节流实现图片请求获取
   useEffect(() => {
     getTypes()
-    // getData()
   }, [])
 
+
   useEffect(() => {
-    if (imgList.length) {
-      mergeData()
-    } else {
-      getData()
-    }
+    console.log('queryInfo变动了')
+    mergeData()
   }, [queryInfo])
 
   const getTypes = async () => {
@@ -55,18 +47,16 @@ function Test (props) {
     setTypeList(array)
   }
 
-  const getData = async () => {
-    const res = await getPictureList({...queryInfo})
-    if (res) {
-      setImgList(res.data.data)
-      setIsLoading(false)
-    }
-  }
-
   const mergeData = async () => {
+    console.log('mergeData')
     const res = await getPictureList({...queryInfo})
     if (res) {
-      setImgList(imgList.concat(res.data.data))
+      if (res.data.data.length === 0) {
+        console.log('所有图片已加载完成！')
+        setIsFinished(true)
+      } else {
+        setImgList(imgList.concat(res.data.data))
+      }
       setIsLoading(false)
     }
   }
@@ -74,13 +64,6 @@ function Test (props) {
   const handlePreviewImg = (img) => {
     setCurrentImg(img)
     setIsPreview(true)
-    // if (isPreview) {
-    //   setPreviewImg({})
-    //   setIsPreview(false)
-    // } else {
-    //   setPreviewImg(img)
-    //   setIsPreview(true)
-    // }
   }
   // 点击下载
   const handleDownloadImg = (img) => {
@@ -89,16 +72,20 @@ function Test (props) {
   }
 
   const changeImgType = (item) => {
-    if (item.key !== queryInfo.type) {
-      props.history.push('/test/' + item.key)
-    }
+    // if (item.key !== queryInfo.type) {
+    //   props.history.push('/test/' + item.key)
+    // }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
+    // 恢复初始状态
     setImgList([])
+    setIsLoading(true)
+    setIsFinished(false)
     setQueryInfo({...queryInfo, type: item.key, start: 0, count: 30})
   }
 
   const loadMoreImgs = () => {
+    console.log('loadMoreImgs')
     setIsLoading(true)
     setQueryInfo({...queryInfo, start: queryInfo.start + queryInfo.count})
   }
@@ -118,33 +105,26 @@ function Test (props) {
     <div>
       <ThreeRowLayout>
         <ThreeRowLayout.LeftStickyRow>
-          {/* <Button onClick={() => { setSidebarShow(sidebarShow => !sidebarShow) }} circular color='teal'>
-            分类
-          </Button>
-          <Transition visible={ !sidebarShow } animation='fade right' duration={500} >
-          </Transition> */}
           <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
         </ThreeRowLayout.LeftStickyRow>
         <ThreeRowLayout.CenterRow>
-          {/* <InfiniteScroll
-            initialLoad={true}
+          <InfiniteScroll
+            initialLoad
             pageStart={0}
             loadMore={ () => loadMoreImgs() }
-            hasMore={ !isLoading && imgList.length !== 0 }
+            hasMore={ !isLoading && !isFinished && imgList.length !== 0 }
             threshold={50}
-          > */}
-          <div style={{ minHeight: '800px' }}>
+          >
             <ImgListView
               handlePreview={ item => handlePreviewImg(item) }
               handleDownload = { item => handleDownloadImg(item) }
-              data={ imgList } 
+              data={ imgList }
               />
-          </div>
-          {/* </InfiniteScroll> */}
+          </InfiniteScroll>
           { isLoading ? <ImgPlaceholder/> : null }
+          { isFinished ? <h1>所有图片已加载完成！</h1> : null }
         </ThreeRowLayout.CenterRow>
         <ThreeRowLayout.RightRow>
-          { sidebarShow ? 123 : 321 }
         </ThreeRowLayout.RightRow>
       </ThreeRowLayout>
       {/* 预览图 */}
