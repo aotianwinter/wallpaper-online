@@ -25,7 +25,7 @@ const ThreeRowLayout = (props) => {
   return (
     <div style={{ display: 'flex', margin: '20px 0' }}>
       <div style={{ width: '100px' }}>
-        <Sticky context={contextRef} offset={60}>
+        <Sticky context={contextRef} offset={0}>
           <div>{ autoSlot(LeftStickyRow) }</div>
         </Sticky>
       </div>

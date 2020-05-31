@@ -5,7 +5,7 @@ import { Menu } from 'semantic-ui-react'
 function VerticalSidebar (props) {
   return (
     <Menu pointing secondary vertical compact size='mini'
-      style={{ height: '80vh', overflow: 'hidden auto' }}
+      style={{ height: '60vh', overflow: 'hidden auto' }}
       >
     {
       props.data.length ?
