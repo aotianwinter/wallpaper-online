@@ -7,7 +7,7 @@ function PageAbout (props) {
     <div style={{ textAlign: 'center', marginTop: '20vh' }}>
       <Header as='h1'>Resources are for learning only, not for commercial use.</Header>
       <Label as='a' size='large' image>
-        <img src={avatar} />
+        <img src={avatar} alt='author avatar' />
         打酱油
       </Label>
     </div>
