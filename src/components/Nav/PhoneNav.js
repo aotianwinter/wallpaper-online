@@ -3,8 +3,11 @@ import { PhoneNavBt, PhoneNavWrapper } from './style'
 import { Icon, Menu, Accordion, Transition } from 'semantic-ui-react'
 
 function PhoneNav (props) {
+  const { textColor, leftMenu, rightMenu } = props.data
+
   const [activeIndex, setActiveIndex] = useState('') // 激活的菜单组展开项
   const [visible, setVisible] = useState(false)
+  
   const emList = document.getElementsByClassName('phone-nav-em')
 
   const showPhoneNavWrapper = () => {
@@ -49,7 +52,7 @@ function PhoneNav (props) {
               item.subitems.map((i) => {
                 return (
                   <Accordion.Content style={{padding: '0px'}} key={i.key} active={activeIndex === item.key}>
-                    <Menu.Item style={{ paddingLeft: '3rem', color: props.data.textColor, background: '#1B1C1D' }}
+                    <Menu.Item style={{ paddingLeft: '3rem', color: textColor, background: '#1B1C1D' }}
                       onClick={() => handleMenuClick(i) }>
                       { i.title }
                     </Menu.Item>
@@ -61,7 +64,7 @@ function PhoneNav (props) {
         )
       :
       (
-        <Menu.Item style={{ color: props.data.textColor }} onClick={() => handleMenuClick(item) } key={item.key}>
+        <Menu.Item style={{ color: textColor }} onClick={() => handleMenuClick(item) } key={item.key}>
           { item.title }
         </Menu.Item>
       )
@@ -78,8 +81,8 @@ function PhoneNav (props) {
       <Transition visible={visible} animation='fade' duration={500}>
         <PhoneNavWrapper>
           <Menu style={{ width: '100%' }} inverted size='huge' vertical>
-            { menuView(props.data.leftMenu) }
-            { menuView(props.data.rightMenu) }
+            { menuView(leftMenu) }
+            { menuView(rightMenu) }
           </Menu>
         </PhoneNavWrapper>
       </Transition>

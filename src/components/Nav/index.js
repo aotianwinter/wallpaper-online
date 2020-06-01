@@ -28,7 +28,6 @@ function Nav (props) {
     const pathname = props.location.pathname
     const val = getActiveItemByPathName(leftMenu, pathname)
     return val === '' ? getActiveItemByPathName(leftMenu, pathname) : val
-    // return val
   }
 
   const [activeItem, setActiveItem] = useState(selectActiveItem())
@@ -97,7 +96,7 @@ function Nav (props) {
       color={ activeColor } pointing secondary
     >
       <Menu.Item header>
-        <img style={{ height: '18px', width: '18px' }} src={ titleIcon }/>
+        <img style={{ height: '18px', width: '18px' }} src={ titleIcon } alt='icon' />
         <span style={{ color: 'white', marginLeft: '10px' }}>
           { titleText }
         </span>

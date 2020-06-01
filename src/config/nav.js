@@ -67,14 +67,19 @@ const configs = {
     title: '分类',
     subitems: [
       {
-        key: 'AA',
-        title: 'AA',
-        href: '/AA'
+        key: '403',
+        title: '403',
+        href: '/403'
       },
       {
-        key: 'BB',
-        title: 'BB',
-        href: '/BB'
+        key: '404',
+        title: '404',
+        href: '/404'
+      },
+      {
+        key: '500',
+        title: '500',
+        href: '/500'
       }
     ]
   },{
