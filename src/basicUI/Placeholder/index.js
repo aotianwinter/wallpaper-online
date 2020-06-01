@@ -1,9 +1,9 @@
 import React from 'react'
-import { Segment, Placeholder } from 'semantic-ui-react'
+import { Placeholder } from 'semantic-ui-react'
 
 function CustomPlaceholder () {
   return (
-    <Segment>
+    <div style={{ marginTop: '20px' }}>
       <Placeholder fluid>
         <Placeholder.Header image>
           <Placeholder.Line />
@@ -15,7 +15,7 @@ function CustomPlaceholder () {
           <Placeholder.Line />
         </Placeholder.Paragraph>
       </Placeholder>
-    </Segment>
+    </div>
   )
 }
 
