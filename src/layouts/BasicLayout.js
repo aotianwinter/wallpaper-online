@@ -12,11 +12,10 @@ function BasicLayout (props) {
   const { route } = props
   
   return (
-    <div>
-      {/* <Sticky context={contextRef}> */}
+    <div ref={contextRef}>
+      <Sticky context={contextRef}>
         <Nav data={ navConfig }/>
-      {/* </Sticky> */}
-      {/* 这是基础布局 */}
+      </Sticky>
       <div style={{ minHeight: '80vh' }}>
         {renderRoutes(route.routes)}
       </div>
