@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import VerticalSidebar from '../../components/Sidebar'
+import MenuBar from '../../components/MenuBar'
 import ImgListView from '../../basicUI/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
 import DownloadModal from '../../basicUI/DownloadModal'
-import ThreeRowLayout from '../../layouts/ThreeRowLayout'
 import CustomPlaceholder from '../../basicUI/Placeholder'
 
 import { getCategories, getPictureList } from '../../api/getData'
@@ -35,15 +34,14 @@ function Test (props) {
   const getTypes = async () => {
     const res = await getCategories()
     let array = []
-    // 过滤限时壁纸
-    Object.keys(res.data.data).map((i) => {
-      if (res.data.data[i].id !== '1') {
-        let temp = {}
-        temp.key = res.data.data[i].id
-        temp.title = res.data.data[i].name
-        array.push(temp)
-      }
-    })
+    // obj => array
+    for (let index in res.data.data) {
+      let temp = {}
+      temp.key = res.data.data[index].id
+      temp.title = res.data.data[index].name
+      array.push(temp)
+    }
+
     setTypeList(array)
   }
 
@@ -72,9 +70,9 @@ function Test (props) {
   }
 
   const changeImgType = (item) => {
-    // if (item.key !== queryInfo.type) {
-    //   props.history.push('/test/' + item.key)
-    // }
+    if (item.key !== queryInfo.type) {
+      props.history.push('/test/' + item.key)
+    }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
     // 恢复初始状态
@@ -91,36 +89,30 @@ function Test (props) {
   }
 
   return (
-    <div>
-      <ThreeRowLayout>
-        <ThreeRowLayout.LeftStickyRow>
-          <VerticalSidebar handleClick={item => changeImgType(item)} data={typeList} />
-        </ThreeRowLayout.LeftStickyRow>
-        <ThreeRowLayout.CenterRow>
-          <InfiniteScroll
-            initialLoad
-            pageStart={0}
-            loadMore={ () => loadMoreImgs() }
-            hasMore={ !isLoading && !isFinished && imgList.length !== 0 }
-            threshold={50}
-          >
-            <ImgListView
-              handlePreview={ item => handlePreviewImg(item) }
-              handleDownload = { item => handleDownloadImg(item) }
-              data={ imgList }
-              />
-          </InfiniteScroll>
-          { isLoading ? <CustomPlaceholder /> : null }
-          { isFinished ? <h1>所有图片已加载完成！</h1> : null }
-        </ThreeRowLayout.CenterRow>
-        <ThreeRowLayout.RightRow>
-        </ThreeRowLayout.RightRow>
-      </ThreeRowLayout>
+    <>
+      {/* 壁纸类型选择菜单 */}
+      <MenuBar onMenuClick={item => changeImgType(item)} data={typeList} />
+      {/* 加载壁纸 */}
+      <InfiniteScroll
+        initialLoad
+        pageStart={0}
+        loadMore={ () => loadMoreImgs() }
+        hasMore={ !isLoading && !isFinished && imgList.length !== 0 }
+        threshold={50}
+      >
+        <ImgListView
+          handlePreview={ item => handlePreviewImg(item) }
+          handleDownload = { item => handleDownloadImg(item) }
+          data={ imgList }
+          />
+      </InfiniteScroll>
+      { isLoading ? <CustomPlaceholder /> : null }
+      { isFinished ? <h1 style={{ textAlign: 'center' }}>所有图片已加载完成！✨</h1> : null }
       {/* 预览图 */}
       <ImgPreview handleClick={ () => setIsPreview(false) } visible={ isPreview } previewImg={ currentImg } />
       {/* 下载选项 */}
       <DownloadModal onClose={ () => setIsDownload(false) } visible={ isDownload } downloadImg={ currentImg } />
-    </div>
+    </>
   )
 }
 
