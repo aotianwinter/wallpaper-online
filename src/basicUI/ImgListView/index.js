@@ -7,9 +7,7 @@ function ImgListView (props) {
   return (
     imgList.length ? imgList.map((item) => {
       return (
-        <div key={item.id}
-          style={{ display: 'inline-block', width: '50%' }}
-        >
+        <div key={item.id} style={{ display: 'inline-block', width: '33%' }}>
           <ImgView 
             onPreviewClick={() => props.handlePreview(item)}
             onDownloadClick={() => props.handleDownload(item)}

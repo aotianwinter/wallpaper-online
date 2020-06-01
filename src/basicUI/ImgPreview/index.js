@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimmer, Image, Button } from 'semantic-ui-react'
+import { Dimmer, Image } from 'semantic-ui-react'
 
 function ImgPreview (props) {
   const { url, utag } = props.previewImg
