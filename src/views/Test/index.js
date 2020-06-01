@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
-import { Placeholder } from 'semantic-ui-react'
 
 import VerticalSidebar from '../../components/Sidebar'
 import ImgListView from '../../basicUI/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
 import DownloadModal from '../../basicUI/DownloadModal'
 import ThreeRowLayout from '../../layouts/ThreeRowLayout'
+import CustomPlaceholder from '../../basicUI/Placeholder'
 
 import { getCategories, getPictureList } from '../../api/getData'
 
@@ -90,17 +90,6 @@ function Test (props) {
     setQueryInfo({...queryInfo, start: queryInfo.start + queryInfo.count})
   }
 
-  const ImgPlaceholder = () => {
-    return (
-      <Placeholder>
-        <Placeholder.Line />
-        <Placeholder.Line />
-        <Placeholder.Line />
-        <Placeholder.Line />
-      </Placeholder>
-    )
-  }
-
   return (
     <div>
       <ThreeRowLayout>
@@ -121,7 +110,7 @@ function Test (props) {
               data={ imgList }
               />
           </InfiniteScroll>
-          { isLoading ? <ImgPlaceholder/> : null }
+          { isLoading ? <CustomPlaceholder /> : null }
           { isFinished ? <h1>所有图片已加载完成！</h1> : null }
         </ThreeRowLayout.CenterRow>
         <ThreeRowLayout.RightRow>

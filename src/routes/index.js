@@ -2,19 +2,24 @@ import React, { lazy, Suspense } from 'react'
 import { Redirect } from 'react-router-dom'
 import BlankLayout from '../layouts/BlankLayout'
 import BasicLayout from '../layouts/BasicLayout'
-import { Dimmer, Loader } from 'semantic-ui-react'
+import CustomPlaceholder from '../basicUI/Placeholder'
 
+// 延迟加载回调
 const SuspenseComponent = Component => props => {
   return (
-    <Suspense fallback={ <Dimmer active><Loader /></Dimmer> }>
+    <Suspense fallback={ <CustomPlaceholder /> }>
       <Component {...props}></Component>
     </Suspense>
   )
 }
 
+// 组件懒加载
 const PageTest = lazy(() => import('../views/Test'))
 const PageAbout = lazy(() => import('../views/About'))
 const Page404 = lazy(() => import('../views/404'))
+const Page403 = lazy(() => import('../views/403'))
+const Page500 = lazy(() => import('../views/500'))
+
 
 export default [
   {
@@ -38,6 +43,16 @@ export default [
             path: "/about",
             exact: true,
             component: SuspenseComponent(PageAbout)
+          },
+          {
+            path: "/403",
+            exact: true,
+            component: SuspenseComponent(Page403)
+          },
+          {
+            path: "/500",
+            exact: true,
+            component: SuspenseComponent(Page500)
           },
           {
             path: "/*",
