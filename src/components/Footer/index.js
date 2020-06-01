@@ -14,7 +14,7 @@ function Footer (props) {
           {
             row.links.length > 0 ?
               row.links.map((item, index) => {
-                return <a href={ `${ item.href }` } target='_blank' key={index}>{ item.name }</a>
+                return <a href={ `${ item.href }` } target='_blank' rel='noopener noreferrer' key={index}>{ item.name }</a>
               }) : null
           }
         </div>
@@ -40,7 +40,7 @@ function Footer (props) {
       <div className='row-bottom'>
         <span style={{ marginRight: '4px' }}> Design By </span>
         <Label as='a' size='mini' image>
-          <img src={ author.avatar } />
+          <img src={ author.avatar } alt='author avatar' />
           { author.name }
         </Label>
         <p>{ copyright }</p>
