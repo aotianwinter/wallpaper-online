@@ -19,7 +19,7 @@ import qrCode from '../assets/qrCode.png'
 const configs = {
   leftRow: {
     icon: qrCode,
-    desc: 'Preview'
+    desc: '扫码体验'
   },
   centerRow: {
     title: '文档链接',

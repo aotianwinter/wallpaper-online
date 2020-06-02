@@ -26,36 +26,36 @@ export default [
     component: BlankLayout,
     routes: [
       {
-        path: "/",
+        path: '/',
         component: BasicLayout,
         routes: [
           {
-            path: "/",
+            path: '/',
             exact: true,
-            render: () => <Redirect to={"/test"} />
+            render: () => <Redirect to={ '/test/5' } />
           },
           {
-            path: "/test/:id",
+            path: '/test/:id',
             exact: true,
             component: SuspenseComponent(PageTest)
           },
           {
-            path: "/about",
+            path: '/about',
             exact: true,
             component: SuspenseComponent(PageAbout)
           },
           {
-            path: "/403",
+            path: '/403',
             exact: true,
             component: SuspenseComponent(Page403)
           },
           {
-            path: "/500",
+            path: '/500',
             exact: true,
             component: SuspenseComponent(Page500)
           },
           {
-            path: "/*",
+            path: '/*',
             exact: true,
             component: SuspenseComponent(Page404)
           }

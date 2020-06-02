@@ -55,7 +55,7 @@ import icon from '../assets/icon.png'
 
 const configs = {
   titleIcon: icon,
-  titleText: '2333',
+  titleText: 'picture-online',
   textColor: 'white',
   activeColor: 'teal',
   leftMenu: [{

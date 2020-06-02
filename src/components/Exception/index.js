@@ -17,7 +17,7 @@ function Exception (props) {
         <h1 className='title'>{ types[type].title }</h1>
         <div className="desc">{ types[type].desc }</div>
         <div className="action">
-          <Button onClick={ () => props.history.push('/about') }>返回首页</Button>
+          <Button onClick={ () => props.history.push('/') }>返回首页</Button>
         </div>
       </div>
     </ExceptionWrap>
