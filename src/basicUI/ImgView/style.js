@@ -24,6 +24,4 @@ export const ImgWrap = styled.div`
       float: left;
     }
   }
-
-
 `

@@ -1,40 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Icon } from 'semantic-ui-react'
 import { CSSTransition } from 'react-transition-group'
-import LazyLoad from 'react-lazyload'
 import { ImgWrap } from './style'
+import imgPlaceholder from './placeholder.png'
 import './fade.css'
 
 function ImgView (props) {
   const { url, tag } = props
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   const filterUrl = () => {
     const array = url.split('/bdr/__85/')
     // 过滤url为低分辨率图片，防止加载时间较长
-    return array.length !== 2 ? url : array[0] + '/bdm/640_395_85/' + array[1]
+    return array.length !== 2 ? url : array[0] + '/bdm/640_360_85/' + array[1]
   }
 
   return (
     <>
-      <LazyLoad throttle={200} height={'100%'} offset={200}>
-        <CSSTransition
+      <ImgWrap>
+        <Image hidden={ isLoaded } src={ imgPlaceholder } rounded />
+        {/* <CSSTransition
           in={true}
           classNames={'fade'}
           appear={true}
           key={1}
           timeout={300}
           unmountOnExit={true}
-          >
-          <ImgWrap>
-            <Image src={ filterUrl() } title={ tag } alt={ tag } rounded />
-            <div className='dim__wrap'>
-              <span className='tag'>{ tag }</span>
-              <Icon onClick={ () => props.onPreviewClick() } name='eye' color='orange' />
-              <Icon onClick={ () => props.onDownloadClick() } name='download' color='teal' src={ filterUrl() } />
-            </div>
-          </ImgWrap>
-        </CSSTransition>
-      </LazyLoad>
+          > */}
+          <Image onLoad={() => setIsLoaded(true)} style={{ opacity: isLoaded ? 1 : 0 }}
+            src={ filterUrl() } title={ tag } alt={ tag } rounded />
+          {/* </CSSTransition> */}
+        <div className='dim__wrap'>
+          <span className='tag'>{ tag }</span>
+          <Icon onClick={ () => props.onPreviewClick() } name='eye' color='orange' />
+          <Icon onClick={ () => props.onDownloadClick() } name='download' color='teal' src={ filterUrl() } />
+        </div>
+      </ImgWrap>
     </>
   )
 }
