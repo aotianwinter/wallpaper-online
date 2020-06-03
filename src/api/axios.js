@@ -1,8 +1,10 @@
 import axios from 'axios'
-// import { notification } from 'antd'
 
 axios.defaults.baseURL = 'http://120.26.51.81:3000' // 本机3000端口
 // axios.defaults.baseURL = 'http://192.168.0.77:3000' // 本机3000端口
+
+// 请求超时时长
+axios.defaults.timeout = 10000
 
 export default async (method, url, data, config) => {
   method = method.toLowerCase()
@@ -13,28 +15,22 @@ export default async (method, url, data, config) => {
     case 'post':
       return axios({ method: 'post', url, data })
     default:
-      // openNotification('error', 'Error', '请检查请求方式!')
+      console.error('请检查请求方式!')
       return false
   }
 }
 
+// 请求拦截器
 axios.interceptors.request.use(function (config) {
+  config.headers.Authorization = 'dajiangyou'
   return config
 }, function (error) {
-  // openNotification('error')
-  return Promise.reject(error)
-})
-// 二、响应拦截器
-axios.interceptors.response.use(function (response) {
-  return response
-}, function (error) {
-  // openNotification('error')
   return Promise.reject(error)
 })
 
-// const openNotification = (type, msg, desc) => {
-//   notification[type]({
-//     message: msg || 'Error',
-//     description: desc || '服务器连接失败！'
-//   })
-// }
+// 响应拦截器
+axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  return Promise.reject(error)
+})
