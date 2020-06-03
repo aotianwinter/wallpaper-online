@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image, Icon } from 'semantic-ui-react'
 import { CSSTransition } from 'react-transition-group'
 import { ImgWrap } from './style'
-import imgPlaceholder from './placeholder.png'
+import loadingImg from './loading.gif'
 import './fade.css'
 
 function ImgView (props) {
@@ -16,10 +16,11 @@ function ImgView (props) {
     return array.length !== 2 ? url : array[0] + '/bdm/640_360_85/' + array[1]
   }
 
+  // 正式Image未加载之前没有高度信息
   return (
     <>
       <ImgWrap>
-        <Image hidden={ isLoaded } src={ imgPlaceholder } rounded />
+        <Image hidden={ isLoaded } className='img-placeholder' src={ loadingImg } rounded />
         {/* <CSSTransition
           in={true}
           classNames={'fade'}

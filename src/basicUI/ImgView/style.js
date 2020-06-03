@@ -4,6 +4,16 @@ export const ImgWrap = styled.div`
   position: relative;
   display: inline-block;
 
+  .img-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
   :hover {
     .dim__wrap {
       display: block;
