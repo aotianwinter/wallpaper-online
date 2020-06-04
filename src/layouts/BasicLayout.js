@@ -6,7 +6,6 @@ import { Sticky } from 'semantic-ui-react'
 import navConfig from '../config/nav'
 import footerConfig from '../config/footer'
 
-
 function BasicLayout (props) {
   const contextRef = createRef()
   const { route } = props
