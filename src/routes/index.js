@@ -14,7 +14,7 @@ const SuspenseComponent = Component => props => {
 }
 
 // 组件懒加载
-const PageTest = lazy(() => import('../views/Test'))
+const PageWallPaper = lazy(() => import('../views/WallPaper'))
 const PageAbout = lazy(() => import('../views/About'))
 const Page404 = lazy(() => import('../views/404'))
 const Page403 = lazy(() => import('../views/403'))
@@ -32,12 +32,12 @@ export default [
           {
             path: '/',
             exact: true,
-            render: () => <Redirect to={ '/test/5' } />
+            render: () => <Redirect to={ '/wallpaper/5' } />
           },
           {
-            path: '/test/:id',
+            path: '/wallpaper/:id',
             exact: true,
-            component: SuspenseComponent(PageTest)
+            component: SuspenseComponent(PageWallPaper)
           },
           {
             path: '/about',

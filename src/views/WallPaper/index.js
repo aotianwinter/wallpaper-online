@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createRef, useCallback } from 'react'
 import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
+import { Sticky } from 'semantic-ui-react'
 
 import MenuBar from '../../components/MenuBar'
 import ImgListView from '../../basicUI/ImgListView'
@@ -10,25 +11,25 @@ import CustomPlaceholder from '../../basicUI/Placeholder'
 
 import { getCategories, getPictureList } from '../../api/getData'
 
-function Test (props) {
+function PageWallPaper (props) {
   const [queryInfo, setQueryInfo] = useState({type: props.match.params.id || 5, start: 0, count: 30}) // query info
-  const [isLoading, setIsLoading] = useState(true) // is loading
-  const [isPreview, setIsPreview] = useState(false) // is preview
-  const [isDownload, setIsDownload] = useState(false) // is download
-  const [isFinished, setIsFinished] = useState(false) // is finished
+  const [isLoading, setIsLoading] = useState(true) // is loading img
+  const [isPreview, setIsPreview] = useState(false) // is preview img
+  const [isDownload, setIsDownload] = useState(false) // is download modal show
+  const [isFinished, setIsFinished] = useState(false) // is all img loading finished
 
   const [currentImg, setCurrentImg] = useState({}) // current img info
   const [imgList, setImgList] = useState([])
   const [typeList, setTypeList] = useState([])
 
+  const contextRef = createRef()
+
   useEffect(() => {
     getTypes()
   }, [])
 
-
   useEffect(() => {
-    console.log('queryInfo变动了')
-    mergeData()
+    updateImgList()
   }, [queryInfo])
 
   const getTypes = async () => {
@@ -44,13 +45,11 @@ function Test (props) {
 
     setTypeList(array)
   }
-
-  const mergeData = async () => {
-    console.log('mergeData')
+  // update img list
+  const updateImgList = async () => {
     const res = await getPictureList({...queryInfo})
-    if (res) {
+    if (res.data) {
       if (res.data.data.length === 0) {
-        console.log('所有图片已加载完成！')
         setIsFinished(true)
       } else {
         setImgList(imgList.concat(res.data.data))
@@ -58,41 +57,55 @@ function Test (props) {
       setIsLoading(false)
     }
   }
-  // 点击预览
-  const handlePreviewImg = (img) => {
-    setCurrentImg(img)
-    setIsPreview(true)
-  }
-  // 点击下载
-  const handleDownloadImg = (img) => {
-    setCurrentImg(img)
-    setIsDownload(true)
-  }
 
   const changeImgType = (item) => {
     if (item.key !== queryInfo.type) {
-      props.history.push('/test/' + item.key)
+      props.history.push('/wallpaper/' + item.key)
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
-    // 恢复初始状态
+    // init state
     setImgList([])
     setIsLoading(true)
     setIsFinished(false)
-    setQueryInfo({...queryInfo, type: item.key, start: 0, count: 30})
+    setQueryInfo({...queryInfo, type: item.key })
   }
 
   const loadMoreImgs = () => {
-    console.log('loadMoreImgs')
     setIsLoading(true)
     setQueryInfo({...queryInfo, start: queryInfo.start + queryInfo.count})
   }
 
+  // cache memoized version of inline callback
+  // click preview
+  const handlePreviewImg = useCallback((img) => {
+    setCurrentImg(img)
+    setIsPreview(true)
+  }, [])
+
+  // click download
+  const handleDownloadImg = useCallback((img) => {
+    setCurrentImg(img)
+    setIsDownload(true)
+  }, [])
+
+  // hide ImgPreview
+  const hideImgPreview = useCallback(() => {
+    setIsPreview(false)
+  }, [])
+  
+  // hide DownloadModal
+  const hideDownloadModal = useCallback(() => {
+    setIsDownload(false)
+  }, [])
+
   return (
-    <>
-      {/* 壁纸类型选择菜单 */}
-      <MenuBar onMenuClick={item => changeImgType(item)} data={typeList} />
-      {/* 加载壁纸 */}
+    <div ref={contextRef}>
+      {/* img type menu */}
+      <Sticky context={contextRef} offset={48}>
+        <MenuBar onMenuClick={ changeImgType } data={typeList} />
+      </Sticky>
+      {/* loading img (infinity) */}
       <InfiniteScroll
         initialLoad
         pageStart={0}
@@ -101,19 +114,19 @@ function Test (props) {
         threshold={50}
       >
         <ImgListView
-          handlePreview={ item => handlePreviewImg(item) }
-          handleDownload = { item => handleDownloadImg(item) }
+          handlePreview={ handlePreviewImg }
+          handleDownload = { handleDownloadImg }
           data={ imgList }
           />
       </InfiniteScroll>
       { isLoading ? <CustomPlaceholder /> : null }
       { isFinished ? <h1 style={{ textAlign: 'center' }}>所有图片已加载完成！✨</h1> : null }
-      {/* 预览图 */}
-      <ImgPreview handleClick={ () => setIsPreview(false) } visible={ isPreview } previewImg={ currentImg } />
-      {/* 下载选项 */}
-      <DownloadModal onClose={ () => setIsDownload(false) } visible={ isDownload } downloadImg={ currentImg } />
-    </>
+      {/* img preview */}
+      <ImgPreview handleClick={ hideImgPreview } visible={ isPreview } previewImg={ currentImg } />
+      {/* download options */}
+      <DownloadModal onClose={ hideDownloadModal } visible={ isDownload } downloadImg={ currentImg } />
+    </div>
   )
 }
 
-export default withRouter(React.memo(Test))
+export default withRouter(React.memo(PageWallPaper))

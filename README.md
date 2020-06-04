@@ -22,11 +22,11 @@
     导航栏会根据URL自动确定当前页面对应激活菜单项。
     配置默认根路由跳转的URL，即可设置默认激活子菜单。
     例如：
-      '/' => '/test' 根路由跳转
+      '/' => '/wallpaper' 根路由跳转
       {
         key: 'Main',
         title: '主页',
-        href: '/test'
+        href: '/wallpaper'
       }
       会自动激活 主页 菜单项
       
@@ -43,7 +43,7 @@
       {
         key: 'Main',
         title: '主页',
-        href: '/test/1'
+        href: '/wallpaper/1'
       }
     外部链接跳转：
       {
