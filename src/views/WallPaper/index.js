@@ -34,16 +34,9 @@ function PageWallPaper (props) {
 
   const getTypes = async () => {
     const res = await getCategories()
-    let array = []
-    // obj => array
-    for (let index in res.data.data) {
-      let temp = {}
-      temp.key = res.data.data[index].id
-      temp.title = res.data.data[index].name
-      array.push(temp)
+    if (res.data) {
+      setTypeList(res.data.data)
     }
-
-    setTypeList(array)
   }
   // update img list
   const updateImgList = async () => {
