@@ -18,27 +18,25 @@ function ImgView (props) {
 
   // 正式Image未加载之前没有高度信息
   return (
-    <>
-      <ImgWrap>
-        <Image hidden={ isLoaded } className='img-placeholder' src={ loadingImg } rounded />
-        {/* <CSSTransition
-          in={true}
-          classNames={'fade'}
-          appear={true}
-          key={1}
-          timeout={300}
-          unmountOnExit={true}
-          > */}
-          <Image onLoad={() => setIsLoaded(true)} style={{ opacity: isLoaded ? 1 : 0 }}
-            src={ filterUrl() } title={ tag } alt={ tag } rounded />
-          {/* </CSSTransition> */}
-        <div className='dim__wrap'>
-          <span className='tag'>{ tag }</span>
-          <Icon onClick={ () => props.onPreviewClick() } name='eye' color='orange' />
-          <Icon onClick={ () => props.onDownloadClick() } name='download' color='teal' src={ filterUrl() } />
-        </div>
-      </ImgWrap>
-    </>
+    <ImgWrap>
+      <Image hidden={ isLoaded } className='img-placeholder' src={ loadingImg } rounded />
+      <CSSTransition
+        in={true}
+        classNames={'fade'}
+        appear={true}
+        key={1}
+        timeout={300}
+        unmountOnExit={true}
+        >
+        <Image onLoad={() => setIsLoaded(true)} style={{ opacity: isLoaded ? 1 : 0 }}
+          src={ filterUrl() } title={ tag } alt={ tag } rounded />
+        </CSSTransition>
+      <div className='dim__wrap'>
+        <span className='tag'>{ tag }</span>
+        <Icon onClick={ () => props.onPreviewClick() } name='eye' color='orange' />
+        <Icon onClick={ () => props.onDownloadClick() } name='download' color='teal' src={ filterUrl() } />
+      </div>
+    </ImgWrap>
   )
 }
 

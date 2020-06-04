@@ -3,6 +3,8 @@ import styled from 'styled-components'
 export const ImgWrap = styled.div`
   position: relative;
   display: inline-block;
+  height: 100%;
+  width: 100%;
 
   .img-placeholder {
     position: absolute;
@@ -15,6 +17,7 @@ export const ImgWrap = styled.div`
   }
 
   :hover {
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.8);
     .dim__wrap {
       display: block;
     }

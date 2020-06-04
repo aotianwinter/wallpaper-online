@@ -1,16 +1,16 @@
 import React from 'react'
-import ImgView from '../ImgView'
-import { ImgViewWrap } from './style'
 import LazyLoad from 'react-lazyload'
+import ImgView from '../ImgView'
+import { ImgListViewWrap, ImgViewWrap } from './style'
 
 function ImgListView (props) {
   const imgList = props.data
 
-  const width = (1 / Math.ceil(window.screen.width / 360) * window.screen.width).toFixed(3)
+  const width = (1 / (document.body.clientWidth / 360) * document.body.clientWidth).toFixed(3)
   const height = (width * 0.5625).toFixed(3)
 
   return (
-    <>
+    <ImgListViewWrap>
       {
         imgList.length > 0 ? imgList.map((item) => {
           return (
@@ -27,7 +27,7 @@ function ImgListView (props) {
           )
         }) : null
       }
-    </>
+    </ImgListViewWrap>
   )
 }
 
