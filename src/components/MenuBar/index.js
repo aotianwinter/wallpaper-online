@@ -6,7 +6,7 @@ function MenuBar (props) {
     <>
       {
         props.data.length ?
-          <Menu secondary compact size='mini' style={{ width: '100%', overflow: 'auto' }}>
+          <Menu secondary compact size='mini' style={{ background: 'white', width: '100%', overflow: 'auto' }}>
             {
               props.data.map((item, index) => {
                 return (
