@@ -102,7 +102,7 @@ function PageWallPaper (props) {
       <InfiniteScroll
         initialLoad
         pageStart={0}
-        loadMore={ () => loadMoreImgs() }
+        loadMore={ loadMoreImgs }
         hasMore={ !isLoading && !isFinished && imgList.length !== 0 }
         threshold={50}
       >
