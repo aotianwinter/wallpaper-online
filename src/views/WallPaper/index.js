@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Sticky } from 'semantic-ui-react'
 
+import BackTop from '../../basicUI/BackTop'
 import MenuBar from '../../components/MenuBar'
 import ImgListView from '../../basicUI/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
@@ -118,6 +119,8 @@ function PageWallPaper (props) {
       <ImgPreview handleClick={ hideImgPreview } visible={ isPreview } previewImg={ currentImg } />
       {/* download options */}
       <DownloadModal onClose={ hideDownloadModal } visible={ isDownload } downloadImg={ currentImg } />
+      {/* back to top */}
+      <BackTop />
     </div>
   )
 }

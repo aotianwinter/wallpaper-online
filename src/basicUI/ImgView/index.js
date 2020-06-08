@@ -30,7 +30,7 @@ function ImgView (props) {
         >
         <Image onLoad={() => setIsLoaded(true)} style={{ opacity: isLoaded ? 1 : 0 }}
           src={ filterUrl() } title={ tag } alt={ tag } rounded />
-        </CSSTransition>
+      </CSSTransition>
       <div className='dim__wrap'>
         <span className='tag'>{ tag }</span>
         <Icon onClick={ () => props.onPreviewClick() } name='eye' color='orange' />
