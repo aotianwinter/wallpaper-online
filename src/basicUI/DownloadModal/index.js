@@ -7,7 +7,7 @@ function DownloadModal (props) {
   const { url, utag } = props.downloadImg
 
   const handleDownload = (param) => {
-    // Safari提醒
+    // Safari Tip
     if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
       alert('抱歉😅！暂不支持Safari下载！请手动保存照片！')
       return

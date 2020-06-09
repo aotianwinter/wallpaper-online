@@ -5,13 +5,13 @@ function download (url, fileName) {
   x.send()
   x.onload = () => {
     const downloadElement = document.createElement('a')
-    const href = window.URL.createObjectURL(x.response) // 创建下载的链接
+    const href = window.URL.createObjectURL(x.response) // create download url
     downloadElement.href = href
-    downloadElement.download = fileName // 下载后文件名(含有后缀)
-    document.body.appendChild(downloadElement) // 追加a标签
-    downloadElement.click() // 点击下载
-    document.body.removeChild(downloadElement) // 下载完成移除元素
-    window.URL.revokeObjectURL(href) // 释放掉blob对象
+    downloadElement.download = fileName // set filename (include suffix)
+    document.body.appendChild(downloadElement) // append <a>
+    downloadElement.click() // click download
+    document.body.removeChild(downloadElement) // remove <a>
+    window.URL.revokeObjectURL(href) // revoke blob
   }
 }
 
