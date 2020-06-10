@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Image, Icon } from 'semantic-ui-react'
 import { CSSTransition } from 'react-transition-group'
 import { ImgWrap } from './style'
@@ -9,6 +9,11 @@ function ImgView (props) {
   const { url, tag } = props
 
   const [isLoaded, setIsLoaded] = useState(false)
+
+  // cache memoized version of inline callback
+  const handleLoaded = useCallback(() => {
+    setIsLoaded(true)
+  }, [])
 
   const filterUrl = () => {
     const array = url.split('/bdr/__85/')
@@ -28,7 +33,7 @@ function ImgView (props) {
         timeout={300}
         unmountOnExit={true}
         >
-        <Image onLoad={() => setIsLoaded(true)} style={{ opacity: isLoaded ? 1 : 0 }}
+        <Image onLoad={ handleLoaded } style={{ opacity: isLoaded ? 1 : 0 }}
           src={ filterUrl() } title={ tag } alt={ tag } rounded />
       </CSSTransition>
       <div className='dim__wrap'>
