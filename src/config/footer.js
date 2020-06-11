@@ -33,8 +33,8 @@ const configs = {
         href: 'https://react.semantic-ui.com/'
       },
       {
-        name: 'Node',
-        href: ''
+        name: 'NPM',
+        href: 'https://www.npmjs.com/'
       }
     ]
   },
