@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Sticky } from 'semantic-ui-react'
 
-import BackTop from '../../basicUI/BackTop'
+// import BackTop from '../../basicUI/BackTop'
 import MenuBar from '../../components/MenuBar'
 import ImgListView from '../../basicUI/ImgListView'
 import ImgPreview from '../../basicUI/ImgPreview'
@@ -96,7 +96,7 @@ function PageWallPaper (props) {
   return (
     <div ref={contextRef}>
       {/* img type menu */}
-      <Sticky context={contextRef} offset={48}>
+      <Sticky context={contextRef} offset={48} styleElement={{ zIndex: '10' }}>
         <MenuBar onMenuClick={ changeImgType } data={typeList} />
       </Sticky>
       {/* loading img (infinity) */}
@@ -120,7 +120,7 @@ function PageWallPaper (props) {
       {/* download options */}
       <DownloadModal onClose={ hideDownloadModal } visible={ isDownload } downloadImg={ currentImg } />
       {/* back to top */}
-      <BackTop />
+      {/* <BackTop /> */}
     </div>
   )
 }
