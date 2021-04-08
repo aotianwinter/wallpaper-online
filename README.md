@@ -1,21 +1,22 @@
-# my-picture-online
+# wallpaper-online
 🎉Power Design By 打酱油🎉
 
 **最新更新**
-🎉图片现已支持 -多分辨率- 下载（Safari暂不支持）
-
-🎉适配PC、Pad、Phone多种分辨率设备，持续更新中！
+- 图片现已支持 -多分辨率- 下载（Safari暂不支持）
+- 适配PC、Pad、Phone多种分辨率设备，持续更新中！
 
 ## 项目简介
-> 该项目是基于`React Hook` + `semantic ui react`实现，提供在线壁纸浏览、下载的前端项目。
+> 该项目基于`React Hook` + `semantic ui`，提供在线壁纸浏览、下载。
+> 
+> 仅作学习使用，切勿用于商业用途。
 
 ![](https://user-gold-cdn.xitu.io/2020/6/10/1729e518e15fdb0a?w=1130&h=715&f=gif&s=5203096)
 
 # 使用
-- [点击在线预览](https://aotianwinter.github.io/my-picture-online/#/wallpaper/5)
+- [点击在线预览](https://aotianwinter.github.io/wallpaper-online/#/wallpaper/5)
 - 扫码体验
-
-![http://120.26.51.81:8000](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/42f7f234d6f0452086365e24018155b9~tplv-k3u1fbpfcp-watermark.image)
+  
+![qrcode_aotianwinter.github.io.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a7f6335018540cfa6256c2dcb34f49c~tplv-k3u1fbpfcp-watermark.image)
 
 - 本地运行
 ```
@@ -23,11 +24,6 @@
 - yarn
 - yarn start
 ```
-
-- 部署服务器
-
-完成`nginx`配置后，结合 [从零开始 Node实现前端自动化部署](https://juejin.im/post/5e210de76fb9a02fb75d6252)
-体验更佳。
 
 ## 配置说明
 ### 头部导航栏配置

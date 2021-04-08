@@ -1,7 +1,6 @@
 {
-  "name": "my-picture-online",
-  "version": "0.1.0",
-  "private": true,
+  "name": "wallpaper-online",
+  "version": "1.0.0",
   "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
