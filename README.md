@@ -12,10 +12,10 @@
 ![](https://user-gold-cdn.xitu.io/2020/6/10/1729e518e15fdb0a?w=1130&h=715&f=gif&s=5203096)
 
 # 使用
-- [点击在线预览](http://120.26.51.81:8000)
+- [点击在线预览](https://aotianwinter.github.io/my-picture-online/#/wallpaper/5)
 - 扫码体验
 
-![http://120.26.51.81:8000](https://user-gold-cdn.xitu.io/2020/6/1/1727015f7cae9234?w=260&h=260&f=png&s=6218)
+![http://120.26.51.81:8000](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/42f7f234d6f0452086365e24018155b9~tplv-k3u1fbpfcp-watermark.image)
 
 - 本地运行
 ```
