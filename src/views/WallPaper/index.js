@@ -46,6 +46,10 @@ function PageWallPaper (props) {
       if (res.data.data.length === 0) {
         setIsFinished(true)
       } else {
+        // 兼容https下载http资源 url更新为https
+        res.data.data.forEach(item => {
+          item.url = item.url.replace('http:', 'https:')
+        })
         setImgList(imgList.concat(res.data.data))
       }
       setIsLoading(false)
