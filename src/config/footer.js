@@ -42,7 +42,7 @@ const configs = {
     links: [
       {
         name: 'GitHub',
-        href: 'https://github.com/aotianwinter/my-picture-online'
+        href: 'https://github.com/aotianwinter'
       },
       {
         name: '掘金',

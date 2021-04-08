@@ -85,7 +85,7 @@ const configs = {
   },{
     key: 'GitHub',
     title: 'GitHub',
-    href: 'https://github.com/aotianwinter/my-picture-online',
+    href: 'https://github.com/aotianwinter/wallpaper-online',
     externalLink: true
   }],
   rightMenu: [{
