@@ -13,7 +13,7 @@ import CustomPlaceholder from '../../basicUI/Placeholder'
 import { getCategories, getPictureList } from '../../api/getData'
 
 function PageWallPaper (props) {
-  const [queryInfo, setQueryInfo] = useState({type: props.match.params.id || 5, start: 0, count: 30}) // query info
+  const [queryInfo, setQueryInfo] = useState({ cid: props.match.params.id || 5, start: 0, count: 30 }) // query info
   const [isLoading, setIsLoading] = useState(true) // is loading img
   const [isPreview, setIsPreview] = useState(false) // is preview img
   const [isDownload, setIsDownload] = useState(false) // is download modal show
@@ -52,9 +52,9 @@ function PageWallPaper (props) {
     }
   }
 
-  const changeImgType = (item) => {
-    if (item.key !== queryInfo.type) {
-      props.history.push('/wallpaper/' + item.key)
+  const changeImgType = (id) => {
+    if (id !== queryInfo.cid) {
+      props.history.push('/wallpaper/' + id)
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
@@ -62,7 +62,7 @@ function PageWallPaper (props) {
     setImgList([])
     setIsLoading(true)
     setIsFinished(false)
-    setQueryInfo({...queryInfo, type: item.key })
+    setQueryInfo({...queryInfo, cid: id })
   }
 
   const loadMoreImgs = () => {

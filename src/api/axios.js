@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://120.26.51.81:3000' // 本机3000端口
-// axios.defaults.baseURL = 'http://192.168.0.77:3000' // 本机3000端口
+// axios.defaults.baseURL = 'https://bird.ioliu.cn/v1?url=' // 本机3000端口
 
 // 请求超时时长
 axios.defaults.timeout = 10000
@@ -22,7 +21,6 @@ export default async (method, url, data, config) => {
 
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
-  config.headers.Authorization = 'dajiangyou'
   return config
 }, function (error) {
   return Promise.reject(error)
