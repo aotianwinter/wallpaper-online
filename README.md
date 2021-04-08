@@ -6,7 +6,7 @@
 - 适配PC、Pad、Phone多种分辨率设备，持续更新中！
 
 ## 项目简介
-> 该项目基于`React Hook` + `semantic ui`，提供在线壁纸浏览、下载。
+> 该项目基于 `React Hook + semantic ui` ，提供在线壁纸浏览、下载。
 > 
 > 仅作学习使用，切勿用于商业用途。
 

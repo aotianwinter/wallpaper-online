@@ -14,18 +14,17 @@
     ---------------------------------------------------------------------------
 */
 import avatar from '../assets/author.jpg'
-import qrCode from '../assets/qrCode.png'
 
 const configs = {
   leftRow: {
-    icon: qrCode,
+    icon: 'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a7f6335018540cfa6256c2dcb34f49c~tplv-k3u1fbpfcp-watermark.image',
     desc: '扫码体验'
   },
   centerRow: {
     title: '文档链接',
     links: [
       {
-        name: 'React官方文档',
+        name: 'React',
         href: 'https://react.docschina.org/'
       },
       {
@@ -59,7 +58,7 @@ const configs = {
     name: '打酱油',
     avatar: avatar
   },
-  copyright: 'copyright©2020'
+  copyright: 'copyright©2021'
 }
 
 export default configs
